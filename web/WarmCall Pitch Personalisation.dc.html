@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WarmCall — Pitch Personalisation · Web prototype</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f7f7f8;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#5b5bf5;text-decoration:none}a:hover{color:#4242e0}*{box-sizing:border-box}</style></helmet>
+<div style="width:100%;height:100vh;overflow:hidden;display:flex;flex-direction:column;background:#f7f7f8">
+
+  <div style="flex:none;display:flex;align-items:center;gap:6px;padding:7px 12px;background:#fff;border-bottom:1px solid #ececef">
+    <span style="font-size:10.5px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:#a6a6ae;margin-right:6px">Flow</span>
+    <a href="WarmCall%20Home%20(Buyer).dc.html" style="font-size:12.5px;font-weight:500;color:#6a6a73;padding:5px 11px;border-radius:999px" style-hover="background:#f1f1f4;color:#101014">Home</a>
+    <a href="WarmCall%20Rooms.dc.html" style="font-size:12.5px;font-weight:500;color:#6a6a73;padding:5px 11px;border-radius:999px" style-hover="background:#f1f1f4;color:#101014">Rooms</a>
+    <a href="WarmCall%20Library.dc.html" style="font-size:12.5px;font-weight:500;color:#6a6a73;padding:5px 11px;border-radius:999px" style-hover="background:#f1f1f4;color:#101014">Library</a>
+    <a href="WarmCall%20Team.dc.html" style="font-size:12.5px;font-weight:500;color:#6a6a73;padding:5px 11px;border-radius:999px" style-hover="background:#f1f1f4;color:#101014">Teams</a>
+    <a href="WarmCall%20Bot%20Personalisation.dc.html" style="font-size:12.5px;font-weight:500;color:#6a6a73;padding:5px 11px;border-radius:999px" style-hover="background:#f1f1f4;color:#101014">Bot personalisation</a>
+    <span style="font-size:12.5px;font-weight:600;color:#101014;padding:5px 11px;border-radius:999px;background:#ececfd">Pitch personalisation</span>
+  </div>
+
+  <div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column">
+
+    <div style="flex:1;min-height:0;background:{{ stageBg }};display:flex;align-items:center;justify-content:center;gap:22px;padding:28px 34px;flex-wrap:nowrap;overflow:hidden">
+      <div style="position:relative;flex:0 1 auto;height:100%;max-height:100%;max-width:calc(50% - 11px);aspect-ratio:1.1;border-radius:16px;overflow:hidden;box-shadow:0 12px 34px rgba(8,24,14,.18)">
+        <div style="position:absolute;inset:0;background-image:{{ camBg }};background-size:cover;background-position:center;filter:{{ camFilter }}"></div>
+        <div style="position:absolute;left:18px;top:18px;padding:8px 16px;border-radius:999px;background:#fff;font-size:15px;font-weight:500;color:#101014;box-shadow:0 1px 4px rgba(8,24,14,.12)">{{ selfLabel }}</div>
+        <div style="position:absolute;left:18px;bottom:18px;display:flex;align-items:center;gap:8px;padding:7px 15px 7px 11px;border-radius:999px;background:#fff;box-shadow:0 1px 4px rgba(8,24,14,.12)">
+          <div style="width:22px;height:22px;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+          <span style="font-size:14.5px;font-weight:600;color:#101014">Your logo</span>
+        </div>
+      </div>
+      <div style="position:relative;flex:0 1 auto;height:100%;max-height:100%;max-width:calc(50% - 11px);aspect-ratio:1.1;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.17);display:flex;align-items:center;justify-content:center">
+        <div style="position:relative;width:52%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background-image:{{ blobBg }};background-size:contain;background-position:center;background-repeat:no-repeat">
+          <div style="width:47%;aspect-ratio:1;border-radius:50%;background-image:url('uploads/Ellipse 146.png');background-size:cover;background-position:center;border:3px solid #fff;box-shadow:0 2px 10px rgba(8,24,14,.16)"></div>
+        </div>
+        <div style="position:absolute;left:18px;top:18px;padding:8px 16px;border-radius:999px;background:#fff;font-size:15px;font-weight:500;color:#101014;box-shadow:0 1px 4px rgba(8,24,14,.12)">{{ prospectLabel }}</div>
+        <div style="position:absolute;left:18px;bottom:18px;display:flex;align-items:center;gap:8px;padding:7px 15px 7px 11px;border-radius:999px;background:#fff;box-shadow:0 1px 4px rgba(8,24,14,.12)">
+          <div style="width:22px;height:22px;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+          <span style="font-size:14.5px;font-weight:600;color:#101014">Collective</span>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ recording }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:34px;padding:16px 26px;background:#fff">
+        <button onClick="{{ stopRecording }}" style="padding:14px 40px;border-radius:999px;border:none;background:#f26a68;font-family:inherit;font-size:19px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#e6524f">Stop recording</button>
+        <div onClick="{{ retry }}" style="display:flex;align-items:center;gap:11px;font-size:19px;font-weight:500;color:#3b3bd9;cursor:pointer">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b3bd9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.2a8 8 0 0 0-13.6-4.4L4 9"></path><path d="M4 4.6V9h4.4"></path><path d="M4 12.8a8 8 0 0 0 13.6 4.4L20 15"></path><path d="M20 19.4V15h-4.4"></path></svg>
+          Retry
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ idle }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:none;display:flex;align-items:center;gap:16px;padding:16px 26px;background:#fff">
+      <a href="WarmCall%20Bot%20Personalisation.dc.html" style="display:flex;align-items:center;gap:11px;padding:13px 26px;border-radius:999px;border:1px solid #d9d9e0;font-size:17px;font-weight:500;color:#101014" style-hover="background:#f7f7f8;color:#101014">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12h-15"></path><path d="M10.5 6l-6 6 6 6"></path></svg>
+        Back
+      </a>
+      <button onClick="{{ startRecording }}" style="margin:0 auto;padding:14px 40px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:19px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">Start recording</button>
+      <div onClick="{{ openSettings }}" style="display:flex;align-items:center;gap:11px;padding:13px 24px;border-radius:999px;border:1px solid #d9d9e0;font-size:17px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2c-5 0-8.8 3.6-8.8 8.4 0 4.4 3.3 7.6 7.4 7.6 1.3 0 2.1-.7 2.1-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.4-.7-.4-1.1 0-.9.7-1.6 1.7-1.6h1.9c3 0 5.4-2.2 5.4-5.2 0-3.1-3.4-5-8.8-5z"></path><circle cx="7.6" cy="10.4" r="1.1" fill="#101014" stroke="none"></circle><circle cx="11" cy="7.4" r="1.1" fill="#101014" stroke="none"></circle><circle cx="15.2" cy="8.4" r="1.1" fill="#101014" stroke="none"></circle></svg>
+        Settings
+      </div>
+      <div style="width:50px;height:50px;border-radius:50%;border:1px solid #d9d9e0;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#f7f7f8">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8v.3"></path><path d="M12 17.1v.4"></path></svg>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ settingsOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:rgba(16,16,20,.45);display:flex;align-items:center;justify-content:center;padding:26px">
+        <div style="width:100%;max-width:1000px;max-height:100%;background:#fff;border-radius:18px;padding:26px 28px 24px;display:flex;flex-direction:column;gap:20px;box-shadow:0 24px 60px rgba(16,16,20,.3)">
+          <div style="flex:none;display:flex;align-items:center">
+            <h2 style="margin:0;font-size:24px;font-weight:600;letter-spacing:-.4px;color:#101014">Settings</h2>
+            <div onClick="{{ closeSettings }}" style="margin-left:auto;display:flex;padding:6px;cursor:pointer">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg>
+            </div>
+          </div>
+
+          <div style="flex:1;min-height:0;overflow:hidden;display:flex;gap:24px;flex-wrap:wrap;align-items:stretch">
+            <div style="flex:1 1 220px;min-width:200px;max-width:280px;display:flex;flex-direction:column;gap:6px">
+              <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+                <div onClick="{{ s.onPick }}" style="display:flex;align-items:center;gap:10px;padding:15px 18px;border-radius:11px;background:{{ s.bg }};cursor:pointer" style-hover="background:#f5f5f7">
+                  <span style="flex:1;font-size:17px;font-weight:{{ s.weight }};color:#101014">{{ s.label }}</span>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="flex:1 1 520px;min-width:min(100%,320px);height:100%;min-height:0;background:#f7f7f8;border-radius:14px;padding:22px;overflow-y:auto">
+
+              <sc-if value="{{ isPickBg }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div style="font-size:16.5px;color:#3a3a42;margin-bottom:18px">Choose a virtual background for your video pitch</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px">
+                    <sc-for list="{{ themes }}" as="t" hint-placeholder-count="8">
+                      <div onClick="{{ t.onPick }}" style="background:#fff;border:2px solid {{ t.border }};border-radius:13px;padding:8px;cursor:pointer">
+                        <div style="width:100%;aspect-ratio:.84;border-radius:9px;background-image:{{ t.img }};background-size:cover;background-position:center"></div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isCustomBg }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="font-size:16.5px;color:#3a3a42;margin-bottom:18px">Upload a custom background for your video pitch</div>
+                  <div style="border:1.5px dashed #c4c4cb;border-radius:13px;padding:30px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;background:#fff">
+                    <button style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-radius:999px;border:1px solid #d9d9e0;background:#fff;font-family:inherit;font-size:16.5px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+                      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.6V4.4"></path><path d="M7.8 8.6L12 4.4l4.2 4.2"></path><path d="M4.6 15.4v3a1.6 1.6 0 0 0 1.6 1.6h11.6a1.6 1.6 0 0 0 1.6-1.6v-3"></path></svg>
+                      Upload image
+                    </button>
+                    <div style="font-size:15px;color:#a6a6ae;text-align:center;text-wrap:pretty">Supported image formats: JPG, JPEG, PNG. The file size must be less than 5 MB.</div>
+                  </div>
+                  <div style="font-size:17px;font-weight:500;color:#101014;margin:20px 0 12px">Recent uploads</div>
+                  <div style="display:flex;gap:16px;overflow-x:auto;padding-bottom:4px">
+                    <sc-for list="{{ recents }}" as="r" hint-placeholder-count="3">
+                      <div style="flex:none;width:230px;aspect-ratio:1.55;border-radius:11px;background-image:{{ r }};background-size:cover;background-position:center;cursor:pointer"></div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isBotColor }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="font-size:16.5px;color:#3a3a42;margin-bottom:18px">Select a bot color that complements your video background.</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px">
+                    <sc-for list="{{ blobs }}" as="b" hint-placeholder-count="8">
+                      <div onClick="{{ b.onPick }}" style="background:#fff;border:1.5px solid {{ b.border }};border-radius:13px;padding:16px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+                        <div style="width:100%;aspect-ratio:1;background-image:{{ b.img }};background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isVideoBg }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="display:flex;justify-content:center">
+                    <div style="width:min(100%,340px);aspect-ratio:1.06;border-radius:11px;background-image:{{ camBg }};background-size:cover;background-position:center;filter:{{ camFilter }}"></div>
+                  </div>
+                  <div style="font-size:17px;color:#3a3a42;margin:20px 0 12px">Choose background</div>
+                  <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:4px">
+                    <sc-for list="{{ videoBgs }}" as="v" hint-placeholder-count="6">
+                      <div onClick="{{ v.onPick }}" style="flex:none;background:#fff;border:2px solid {{ v.border }};border-radius:13px;padding:6px;cursor:pointer">
+                        <div style="width:96px;aspect-ratio:1.04;border-radius:9px;background-image:{{ v.img }};background-color:{{ v.fallback }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;color:#fff">{{ v.label }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="flex:none;display:flex;justify-content:flex-end">
+            <button onClick="{{ closeSettings }}" style="padding:13px 36px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:18px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">Update</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+const THEMES = [
+  { key: "forest", file: "uploads/Themes.png", css: 'url("uploads/Dashboard-373ff6a6.jpg") center/cover no-repeat' },
+  { key: "autumn", file: "uploads/Themes-1.png", css: "radial-gradient(110% 80% at 30% 92%, #f4e58a 0%, rgba(244,229,138,0) 60%), linear-gradient(135deg, #e5a73c 0%, #bfcb3f 45%, #35a83a 100%)" },
+  { key: "summer", file: "uploads/Themes-2.png", css: "radial-gradient(110% 80% at 78% 30%, #f6a0a8 0%, rgba(246,160,168,0) 58%), linear-gradient(135deg, #f4644a 0%, #fb8f5f 55%, #f9a97e 100%)" },
+  { key: "rainbow", file: "uploads/Themes-3.png", css: "radial-gradient(90% 70% at 70% 20%, #c88df6 0%, rgba(200,141,246,0) 55%), linear-gradient(115deg, #e8564a 0%, #e0b13c 28%, #7bc55f 52%, #6f7bf7 76%, #3fb9a8 100%)" },
+  { key: "sky", file: "uploads/Themes-4.png", css: "radial-gradient(90% 70% at 32% 22%, #a7bdff 0%, rgba(167,189,255,0) 60%), linear-gradient(135deg, #79b8fb 0%, #5d64f7 100%)" },
+  { key: "ocean", file: "uploads/Themes-5.png", css: "radial-gradient(100% 80% at 78% 34%, #3ec9b4 0%, rgba(62,201,180,0) 62%), linear-gradient(135deg, #1f7fe0 0%, #14a0a4 100%)" },
+  { key: "space", file: "uploads/Themes-6.png", css: "radial-gradient(90% 70% at 30% 26%, #123ba8 0%, rgba(18,59,168,0) 60%), linear-gradient(140deg, #1b1560 0%, #0b1f6e 55%, #14142e 100%)" },
+  { key: "charcoal", file: "uploads/Themes-7.png", css: "radial-gradient(90% 70% at 30% 30%, #4a4a4d 0%, rgba(74,74,77,0) 62%), linear-gradient(140deg, #3a3a3c 0%, #262628 100%)" }
+];
+const BLOBS = [
+  "uploads/final-glass-blob 4.png",
+  "uploads/final-glass-blob 3.png",
+  "uploads/final-glass-blob 3-1.png",
+  "uploads/final-glass-blob 5.png",
+  "uploads/final-glass-blob 2.png",
+  "uploads/final-glass-blob 2-1.png",
+  "uploads/final-glass-blob 3-2.png",
+  "uploads/final-glass-blob 2-2.png"
+];
+const VIDEO_BGS = [
+  { key: "none", label: "None", file: null },
+  { key: "blur", label: "Blur", file: "uploads/Frame 1000003689.png" },
+  { key: "art", label: "", file: "uploads/Frame 1000003690.png" },
+  { key: "desk", label: "", file: "uploads/Frame 1000003691.png" },
+  { key: "dining", label: "", file: "uploads/Frame 1000003695.png" },
+  { key: "brick", label: "", file: "uploads/Frame 1000003696.png" },
+  { key: "sea", label: "", file: "uploads/Frame 1000003698.png" },
+  { key: "plants", label: "", file: "uploads/Frame 1000003699.png" },
+  { key: "beach", label: "", file: "uploads/Frame 1000003700.png" },
+  { key: "lake", label: "", file: "uploads/Frame 1000003701.png" }
+];
+class Component extends DCLogic {
+  state = { settingsOpen: false, section: "pick", theme: "forest", blob: 0, videoBg: "none", recording: false };
+  renderVals() {
+    const sec = this.state.section;
+    const theme = THEMES.find(t => t.key === this.state.theme) || THEMES[0];
+    const vb = VIDEO_BGS.find(v => v.key === this.state.videoBg) || VIDEO_BGS[0];
+    const camFile = (vb.key === "none" || vb.key === "blur") ? "uploads/image3.png" : vb.file;
+    return {
+      stageBg: theme.css,
+      camBg: 'url("' + camFile + '")',
+      camFilter: vb.key === "blur" ? "blur(6px)" : "none",
+      blobBg: 'url("' + BLOBS[this.state.blob] + '")',
+      selfLabel: "Ethan, SDR",
+      prospectLabel: "Daniel, CEO (AI)",
+      recording: this.state.recording,
+      idle: !this.state.recording,
+      startRecording: () => this.setState({ recording: true }),
+      retry: () => this.setState({ recording: false }),
+      stopRecording: () => { window.location.href = "WarmCall%20Library.dc.html?new=1"; },
+      settingsOpen: this.state.settingsOpen,
+      openSettings: () => this.setState({ settingsOpen: true }),
+      closeSettings: () => this.setState({ settingsOpen: false }),
+      sections: [
+        { key: "pick", label: "Pick a BG" },
+        { key: "custom", label: "Custom BG" },
+        { key: "bot", label: "Bot color" },
+        { key: "video", label: "Video background" }
+      ].map(s => ({
+        label: s.label,
+        bg: sec === s.key ? "#eef0fe" : "transparent",
+        weight: sec === s.key ? 600 : 400,
+        onPick: () => this.setState({ section: s.key })
+      })),
+      isPickBg: sec === "pick",
+      isCustomBg: sec === "custom",
+      isBotColor: sec === "bot",
+      isVideoBg: sec === "video",
+      themes: THEMES.map(t => ({
+        img: 'url("' + t.file + '")',
+        border: this.state.theme === t.key ? "#5b5bf5" : "#fff",
+        onPick: () => this.setState({ theme: t.key })
+      })),
+      blobs: BLOBS.map((f, i) => ({
+        img: 'url("' + f + '")',
+        border: this.state.blob === i ? "#5b5bf5" : "#ececef",
+        onPick: () => this.setState({ blob: i })
+      })),
+      videoBgs: VIDEO_BGS.map(v => ({
+        label: v.label,
+        img: v.file ? 'url("' + v.file + '")' : "none",
+        fallback: v.key === "none" ? "#45454b" : "transparent",
+        border: this.state.videoBg === v.key ? "#5b5bf5" : "#fff",
+        onPick: () => this.setState({ videoBg: v.key })
+      })),
+      recents: [
+        'url("uploads/Frame 1000003701.png")',
+        'url("uploads/Frame 1000003700.png")',
+        'url("uploads/Frame 1000003699.png")'
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
