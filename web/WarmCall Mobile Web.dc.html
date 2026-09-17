@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WarmCall — Web prototype (phone view)</title>
+<script>
+(function(){try{
+  if(window.matchMedia('(min-width: 861px)').matches){
+    var map={home:'Home%20(Buyer)',rooms:'Rooms',library:'Library',team:'Team',bot:'Bot%20Personalisation',pitch:'Pitch%20Personalisation'};
+    var sc=new URLSearchParams(location.search).get('screen')||'home';
+    location.replace('WarmCall%20'+(map[sc]||map.home)+'.dc.html');
+  }
+}catch(e){}})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e4e4ea;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#5b5bf5;text-decoration:none}a:hover{color:#4242e0}*{box-sizing:border-box}input::placeholder,textarea::placeholder{color:#a6a6ae}.wc-col>*{flex-shrink:0}@media (max-width:520px){.wc-shell{padding:0!important;min-height:100dvh!important;background:#f7f7f8!important}.wc-device{width:100%!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}}</style></helmet>
+<div class="wc-shell" style="min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:28px 16px 40px;background:#e4e4ea">
+<div class="wc-device" style="position:relative;width:390px;height:844px;background:#f7f7f8;border-radius:26px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 44px rgba(16,16,20,.18)">
+
+  <div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 15px 2px;background:#f7f7f8">
+    <a href="../" title="Back to all WarmCall prototypes" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#fff;background:#101014;padding:7px 13px 7px 10px;border-radius:999px;text-decoration:none" style-hover="background:#2b2b31"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3.5 5.5 8l4.5 4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>All prototypes</a>
+    <span style="font-size:12px;color:#8a8a93">Web prototype · phone view</span>
+  </div>
+  <div style="flex:none;background:#f7f7f8;z-index:2">
+    <div style="display:flex;align-items:center;gap:13px;padding:15px 17px 16px">
+      <div onClick="{{ goHome }}" style="width:44px;height:44px;flex:none;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat;cursor:pointer"></div>
+      <div onClick="{{ goHome }}" style="font-size:26px;font-weight:700;letter-spacing:-.6px;color:#101014;cursor:pointer">WarmCall</div>
+      <div onClick="{{ toggleDrawer }}" style="margin-left:auto;width:44px;height:44px;flex:none;border-radius:50%;background:{{ burgerBg }};border:1px solid {{ burgerBorder }};box-shadow:0 1px 2px rgba(16,16,20,.06);display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg>
+        </sc-if>
+        <sc-if value="{{ drawerClosed }}" hint-placeholder-val="{{ true }}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </sc-if>
+      </div>
+    </div>
+    <div style="height:5px;background:linear-gradient(90deg,#186b3c 0%,#2aa257 52%,#5cc582 100%)"></div>
+  </div>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:1;min-height:0;overflow-y:auto">
+    <div style="padding:12px 15px;text-align:center;font-size:13.5px;line-height:1.45;color:#101014;background:#fff;border-bottom:1px solid #f0f0f3;text-wrap:pretty">
+      Boost your trust score by updating your role and company details in your profile.
+      <a href="#profile" style="font-weight:600">Update personal info</a>
+    </div>
+    <section style="position:relative;overflow:hidden;background:#eef0fe;padding:26px 18px 30px">
+      <div style="position:absolute;left:-58px;top:-14px;width:190px;height:140px;border-radius:48% 52% 46% 54%/50% 46% 54% 50%;background:#e4e7fd"></div>
+      <div style="position:absolute;right:-34px;top:-26px;width:150px;height:120px;border-radius:36px;background:#e4e7fd"></div>
+      <div style="position:relative">
+        <h1 style="margin:0 0 20px;text-align:center;font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.6px;color:#101014;display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap">
+          <span>Find what you’re looking for</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2.6c.7 4.6 2.2 6.1 6.8 6.8-4.6.7-6.1 2.2-6.8 6.8-.7-4.6-2.2-6.1-6.8-6.8 4.6-.7 6.1-2.2 6.8-6.8z" transform="translate(0 2.4)"></path></svg>
+        </h1>
+        <div style="position:relative;margin-bottom:18px">
+          <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Ask WarmCall" style="width:100%;padding:14px 50px 14px 18px;font-family:inherit;font-size:15px;color:#101014;background:#fff;border:1px solid #d9d9e0;border-radius:999px;outline:none" style-focus="border-color:#5b5bf5;box-shadow:0 0 0 3px rgba(91,91,245,.12)" />
+          <button style="position:absolute;right:5px;top:5px;width:36px;height:36px;border:none;border-radius:50%;background:#5b5bf5;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#4242e0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15"></path><path d="M13.5 6l6 6-6 6"></path></svg></button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ prompts }}" as="p" hint-placeholder-count="3">
+            <div onClick="{{ p.onPick }}" style="background:#fff;border-radius:9px;padding:13px 14px 14px;cursor:pointer;box-shadow:0 1px 2px rgba(16,16,20,.05)" style-hover="box-shadow:0 5px 14px rgba(16,16,20,.09)">
+              <div style="margin-bottom:12px;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.7" stroke-linejoin="round"><path d="M14 6.2c.6 3.8 1.8 5 5.6 5.6-3.8.6-5 1.8-5.6 5.6-.6-3.8-1.8-5-5.6-5.6 3.8-.6 5-1.8 5.6-5.6z"></path><path d="M5.6 3.4c.3 1.9.9 2.5 2.8 2.8-1.9.3-2.5.9-2.8 2.8-.3-1.9-.9-2.5-2.8-2.8 1.9-.3 2.5-.9 2.8-2.8z"></path></svg></div>
+              <div style="display:flex;align-items:flex-end;gap:12px;justify-content:space-between">
+                <div style="font-size:14px;line-height:1.35;color:#101014;text-wrap:pretty">{{ p.text }}</div>
+                <div style="flex:none;display:flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15"></path><path d="M13.5 6l6 6-6 6"></path></svg></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    <section style="background:#fff;padding:20px 15px 26px">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div style="font-size:20px;line-height:1">🌟</div>
+        <div>
+          <h2 style="margin:0 0 2px;font-size:18px;font-weight:600;letter-spacing:-.3px;color:#101014">Buyers’ Favorite</h2>
+          <p style="margin:0;font-size:13px;line-height:1.4;color:#8a8a93;text-wrap:pretty">List of your own bot that listens to pitches and qualifies them for you</p>
+        </div>
+      </div>
+      <div onClick="{{ goBot }}" style="display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#5b5bf5;color:#fff;font-size:15px;font-weight:500;padding:13px 19px;margin:16px 0 18px;cursor:pointer" style-hover="background:#4242e0">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="12.5" height="11" rx="2.5"></rect><path d="M15 11.2l5-3.1a.8.8 0 0 1 1.2.7v6.4a.8.8 0 0 1-1.2.7l-5-3.1z"></path></svg>
+        Create video
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="7">
+          <article onClick="{{ t.onOpen }}" style="background:#fff;border-radius:9px;border:1px solid {{ t.border }};box-shadow:0 1px 2px rgba(16,16,20,.06);overflow:hidden;cursor:pointer" style-hover="box-shadow:0 7px 18px rgba(16,16,20,.11)">
+            <div style="width:100%;aspect-ratio:1.99;background-image:{{ t.bg }};background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+            <div style="padding:13px 13px 12px">
+              <div style="font-size:15px;line-height:1.3;font-weight:500;color:#101014;letter-spacing:-.2px;text-wrap:pretty">{{ t.title }}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px">
+                <div style="display:flex;align-items:center;gap:7px;min-width:0">
+                  <div style="width:26px;height:26px;flex:none;border-radius:50%;background:{{ t.avatarBg }};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#4a4a55">{{ t.initials }}</div>
+                  <div style="min-width:0">
+                    <div style="font-size:12.5px;font-weight:500;color:#101014;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.name }}</div>
+                    <a href="#company" style="font-size:12px;display:inline-flex;align-items:center;gap:4px">{{ t.company }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"></path><path d="M20 4l-8.5 8.5"></path><path d="M18 14.5V19a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19V7.5A1.5 1.5 0 0 1 5 6h4.5"></path></svg></a>
+                  </div>
+                </div>
+                <div style="flex:none;display:flex;align-items:center;gap:4px;padding:6px 11px;border-radius:999px;background:{{ t.badgeBg }};font-size:13px;font-weight:600;color:{{ t.badgeColor }}">
+                  {{ t.rank }}
+                  <sc-if value="{{ t.crown }}" hint-placeholder-val="{{ false }}">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="{{ t.badgeColor }}"><path d="M3 7.5l4.2 3.2L12 4.5l4.8 6.2L21 7.5l-1.6 10a1 1 0 0 1-1 .8H5.6a1 1 0 0 1-1-.8z"></path></svg>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isRooms }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;overflow-y:auto;background:#fff;padding:16px 15px 24px;display:flex;flex-direction:column;gap:14px">
+    <h1 style="margin:0;font-size:24px;font-weight:600;letter-spacing:-.6px;color:#101014">Rooms</h1>
+    <div style="position:relative">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" style="position:absolute;left:14px;top:14px"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.4 15.4L20 20"></path></svg>
+      <input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Search by company" style="width:100%;padding:13px 14px 13px 38px;font-family:inherit;font-size:14px;color:#101014;background:#f5f5f7;border:none;border-radius:11px;outline:none" />
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4">
+        <div onClick="{{ r.onOpen }}" style="display:flex;gap:12px;padding:12px 8px;border-radius:12px;cursor:pointer" style-hover="background:#f7f7f8">
+          <div style="width:44px;height:44px;flex:none;border-radius:50%;background-image:{{ r.bg }};background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+              <div style="font-size:15.5px;font-weight:600;color:#101014;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</div>
+              <div style="font-size:12.5px;color:{{ r.timeColor }};flex:none">{{ r.time }}</div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px">
+              <div style="font-size:13.5px;color:{{ r.previewColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.preview }}</div>
+              <sc-if value="{{ r.unread }}" hint-placeholder-val="{{ false }}">
+                <div style="flex:none;min-width:19px;height:19px;border-radius:999px;background:#101014;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px">1</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isRoom }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;background:#fff;display:flex;flex-direction:column">
+    <div style="flex:none;padding:12px 15px 0;display:flex;align-items:center;gap:10px">
+      <svg onClick="{{ goRooms }}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;cursor:pointer"><path d="M19.5 12h-15"></path><path d="M10.5 6l-6 6 6 6"></path></svg>
+      <div style="display:flex;flex:none">
+        <div style="width:30px;height:30px;border-radius:50%;background-image:url('uploads/ethan.webp');background-size:cover;background-position:center;border:2px solid #fff"></div>
+        <div style="width:30px;height:30px;border-radius:50%;margin-left:-11px;background-image:{{ roomBg }};background-size:cover;background-position:center;border:2px solid #fff"></div>
+      </div>
+      <div style="min-width:0;display:flex;align-items:center;gap:6px;font-size:17px;font-weight:600;letter-spacing:-.3px;color:#101014;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+        Ethan
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M9.5 8.5L6 12l3.5 3.5"></path><path d="M14.5 8.5L18 12l-3.5 3.5"></path></svg>
+        {{ roomTitle }} <span style="color:#a6a6ae;font-weight:500">(LinkedIn)</span>
+      </div>
+    </div>
+    <div style="flex:none;display:flex;gap:22px;padding:0 15px;border-bottom:1px solid #f0f0f3;margin-top:12px">
+      <div onClick="{{ showMessages }}" style="display:flex;align-items:center;gap:7px;padding:9px 2px 11px;border-bottom:2.5px solid {{ msgUnderline }};cursor:pointer">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M6.8 8.8H13.2M6.8 11.6H11.2M18 10C18 14.4183 14.4183 18 10 18C8.72025 18 7.51069 17.6995 6.43802 17.1652C6.15297 17.0233 5.82715 16.976 5.51951 17.0583L3.73868 17.5348C2.96561 17.7416 2.25836 17.0344 2.46521 16.2613L2.94169 14.4805C3.02401 14.1729 2.97675 13.847 2.83477 13.562C2.30049 12.4893 2 11.2797 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10Z" stroke="#101014" stroke-width="1.5" stroke-linecap="round"></path></svg>
+        <span style="font-size:15px;font-weight:500;color:{{ msgColor }}">Messages</span>
+      </div>
+      <div onClick="{{ showVideo }}" style="display:flex;align-items:center;gap:7px;padding:9px 2px 11px;border-bottom:2.5px solid {{ vidUnderline }};cursor:pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="3"></rect><path d="M10.2 9.6l4.6 2.4-4.6 2.4z"></path></svg>
+        <span style="font-size:15px;font-weight:500;color:{{ vidColor }}">Video pitch</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ roomMessages }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:20px;padding:16px 15px 8px">
+        <sc-for list="{{ thread }}" as="m" hint-placeholder-count="3">
+          <div style="display:flex;gap:11px">
+            <div style="width:32px;height:32px;flex:none;border-radius:50%;background-image:{{ m.bg }};background-size:cover;background-position:center"></div>
+            <div style="min-width:0">
+              <div style="font-size:14.5px;font-weight:600;color:#101014">{{ m.who }}</div>
+              <div style="font-size:12px;color:#a6a6ae;margin-top:2px">{{ m.at }}</div>
+              <div style="font-size:14.5px;line-height:1.5;color:#101014;margin-top:7px;text-wrap:pretty;white-space:pre-line">{{ m.text }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex:none;margin:0 15px 16px;background:#f7f7f8;border-radius:12px;padding:8px 12px 10px">
+        <div style="display:flex;align-items:center;gap:9px;padding-bottom:8px">
+          <div style="width:28px;height:28px;flex:none;border-radius:9px;background:#ebebee;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></div>
+          <div style="width:1px;height:18px;background:#e2e2e6"></div>
+          <div style="font-size:14.5px;font-weight:700;color:#3a3a42;padding:0 5px;cursor:pointer">B</div>
+          <div style="font-size:14.5px;font-style:italic;color:#3a3a42;font-family:Georgia,serif;padding:0 5px;cursor:pointer">I</div>
+          <div style="width:1px;height:18px;background:#e2e2e6"></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.8" stroke-linecap="round" style="cursor:pointer"><path d="M9.5 14.5l5-5"></path><path d="M13 7.5l1.6-1.6a3.4 3.4 0 0 1 4.8 4.8L17.8 12.3"></path><path d="M11 16.5l-1.6 1.6a3.4 3.4 0 0 1-4.8-4.8L6.2 11.7"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.8" stroke-linecap="round" style="cursor:pointer"><path d="M9 7h11M9 12h11M9 17h11"></path><circle cx="4.6" cy="7" r="1.2" fill="#3a3a42" stroke="none"></circle><circle cx="4.6" cy="12" r="1.2" fill="#3a3a42" stroke="none"></circle><circle cx="4.6" cy="17" r="1.2" fill="#3a3a42" stroke="none"></circle></svg>
+        </div>
+        <textarea value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onDraftKey }}" placeholder="Start a thread" style="width:100%;height:52px;padding:9px 0 0;resize:none;border:none;background:transparent;outline:none;font-family:inherit;font-size:14.5px;line-height:1.4;color:#101014"></textarea>
+        <div style="display:flex;justify-content:flex-end;margin-top:6px">
+          <div onClick="{{ sendDraft }}" style="display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;background:{{ sendBg }};color:{{ sendColor }};font-size:14.5px;font-weight:500;cursor:pointer">
+            Send
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="{{ sendColor }}"><path d="M3 11.2l17-7.2-7.2 17-2.1-6.4z"></path></svg>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ roomVideo }}" hint-placeholder-val="{{ false }}">
+      <div class="wc-col" style="flex:1;min-height:0;overflow-y:auto;padding:16px 15px 26px;display:flex;flex-direction:column;gap:16px">
+      <div style="position:relative;border-radius:11px;overflow:hidden">
+        <div style="width:100%;aspect-ratio:1.6;background-image:url('uploads/pitch-video.webp');background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:11px 13px;background:linear-gradient(to top,rgba(16,26,18,.72),rgba(16,26,18,.18))">
+          <div onClick="{{ togglePlay }}" style="flex:none;display:flex;cursor:pointer">
+            <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="4.5" width="4.5" height="15" rx="1.2"></rect><rect x="13.5" y="4.5" width="4.5" height="15" rx="1.2"></rect></svg>
+            </sc-if>
+            <sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5l13 7.5-13 7.5z"></path></svg>
+            </sc-if>
+          </div>
+          <div style="flex:1;height:3.5px;border-radius:999px;background:rgba(255,255,255,.42);position:relative">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:{{ progress }};background:#fff;border-radius:999px"></div>
+            <div style="position:absolute;left:{{ progress }};top:-3.5px;width:10.5px;height:10.5px;border-radius:50%;background:#fff"></div>
+          </div>
+          <div style="font-size:14px;font-weight:500;color:#fff;flex:none">{{ elapsed }}</div>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;cursor:pointer"><path d="M9 4.5H4.5V9"></path><path d="M15 4.5h4.5V9"></path><path d="M9 19.5H4.5V15"></path><path d="M15 19.5h4.5V15"></path></svg>
+        </div>
+      </div>
+      
+      <div style="font-size:17.5px;line-height:1.38;font-weight:500;letter-spacing:-.3px;color:#101014;text-wrap:pretty">Ethan <span style="color:#a6a6ae;font-weight:500">‹›</span> Daniel <span style="color:#c6c6cc">|</span> Streamline your processes with an increase in efficiency</div>
+      <div style="display:flex;align-items:center;gap:11px">
+        <div style="width:42px;height:42px;flex:none;border-radius:50%;background-image:url('uploads/ethan.webp');background-size:cover;background-position:center"></div>
+        <div style="min-width:0">
+          <div style="font-size:15px;font-weight:600;color:#101014">Ethan Smith</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:14px;color:#5b5bf5">Gong <svg width="12" height="12" viewBox="0 0 11 11" fill="none"><path d="M4 1H1v9h9V7M6.5 1H10v3.5M10 1L5.2 5.8" stroke="#5b5bf5" stroke-width="1.2"></path></svg></div>
+        </div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+          <div onClick="{{ demoToast }}" title="Play demo video" style="width:40px;height:40px;flex:none;border-radius:50%;background:#fff;border:1px solid #e0e0e4;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="19" height="19" viewBox="0 0 20 20" fill="none"><rect x="1.6" y="4.6" width="11.4" height="10.8" rx="2.6" stroke="#101014" stroke-width="1.5"></rect><path d="M13 9.3l4.3-2.6c.4-.2.9.1.9.6v5.4c0 .5-.5.8-.9.6L13 10.7V9.3z" fill="#101014"></path></svg></div>
+          <div onClick="{{ openChat }}" title="Message Ethan" style="width:40px;height:40px;flex:none;border-radius:50%;background:#fff;border:1px solid #e0e0e4;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M17 9.6c0 3.6-3.1 6.5-7 6.5-.9 0-1.7-.1-2.5-.4L3.4 17l1-3c-.9-1.1-1.4-2.4-1.4-3.9C3 6.4 6.1 3.5 10 3.5s7 2.9 7 6.1z" stroke="#101014" stroke-width="1.5" stroke-linejoin="round"></path><circle cx="7" cy="9.7" r="1" fill="#101014"></circle><circle cx="10" cy="9.7" r="1" fill="#101014"></circle><circle cx="13" cy="9.7" r="1" fill="#101014"></circle></svg></div>
+          <div onClick="{{ calToast }}" title="Book a meeting" style="width:40px;height:40px;flex:none;border-radius:50%;background:#5b5bf5;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="19" height="19" viewBox="0 0 20 20" fill="none"><rect x="2.6" y="4.2" width="14.8" height="13.2" rx="3" stroke="#fff" stroke-width="1.5"></rect><path d="M2.6 8.2h14.8" stroke="#fff" stroke-width="1.5"></path><path d="M6.6 2.6v3M13.4 2.6v3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path><path d="M7.4 12.4l1.8 1.8 3.6-3.6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;border-bottom:1px solid #f0f0f3;margin-top:4px">
+        <div onClick="{{ showFit }}" style="display:flex;align-items:center;gap:7px;padding:0 2px 10px;border-bottom:2.5px solid {{ fitUnderline }};cursor:pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4" width="15" height="16.5" rx="2.6"></rect><path d="M9 4V2.8h6V4"></path><path d="M8.8 12.4l2.4 2.4 4-4.4"></path></svg>
+          <span style="font-size:15px;font-weight:500;color:{{ fitColor }}">Fit check</span>
+        </div>
+        <div onClick="{{ showSummary }}" style="display:flex;align-items:center;gap:7px;padding:0 2px 10px;border-bottom:2.5px solid {{ sumUnderline }};cursor:pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.2h7.2L18.4 8v12.8H6z"></path><path d="M13 3.4V8.2h5"></path></svg>
+          <span style="font-size:15px;font-weight:500;color:{{ sumColor }}">Summary</span>
+        </div>
+        <div onClick="{{ showTranscript }}" style="display:flex;align-items:center;gap:7px;padding:0 2px 10px;border-bottom:2.5px solid {{ trUnderline }};cursor:pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h11M4 17h7"></path></svg>
+          <span style="font-size:15px;font-weight:500;color:{{ trColor }}">Transcript</span>
+        </div>
+      </div>
+      <sc-if value="{{ isFit }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <h3 style="margin:2px 0 10px;font-size:17px;font-weight:600;letter-spacing:-.3px;color:#101014">About Gong</h3>
+            <div style="border:1px solid #ececef;border-radius:8px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:1fr 1fr;background:#f7f7f8;border-bottom:1px solid #ececef">
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63;border-right:1px solid #ececef">Pain points</div>
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63">How Gong helps</div>
+              </div>
+              <sc-for list="{{ about }}" as="row" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #f0f0f3">
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014;border-right:1px solid #f0f0f3;text-wrap:pretty">{{ row.a }}</div>
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014;text-wrap:pretty">{{ row.b }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <h3 style="margin:2px 0 10px;font-size:17px;font-weight:600;letter-spacing:-.3px;color:#101014">Key criteria</h3>
+            <div style="border:1px solid #ececef;border-radius:8px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:1fr 1fr;background:#f7f7f8;border-bottom:1px solid #ececef">
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63;border-right:1px solid #ececef">Criteria</div>
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63">Response</div>
+              </div>
+              <sc-for list="{{ criteria }}" as="row" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #f0f0f3">
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014;border-right:1px solid #f0f0f3">{{ row.a }}</div>
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014">{{ row.b }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      
+      <sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+            <p style="margin:0;font-size:14.5px;line-height:1.55;color:#3a3a42;text-wrap:pretty">Highlighted the potential for increased customer satisfaction through combined solutions. Mentioned potential cost savings and efficiency improvements for clients. Discussed the competitive advantage of offering a broader solution set.</p>
+            <div onClick="{{ showTranscript }}" style="font-size:15px;font-weight:500;color:#5b5bf5;cursor:pointer">View transcript</div>
+          </div>
+        </sc-if>
+      <sc-if value="{{ isTranscript }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <sc-for list="{{ transcript }}" as="t" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px">
+              <div style="flex:none;width:42px;font-size:13px;font-weight:500;color:#a6a6ae;padding-top:2px">{{ t.at }}</div>
+              <div style="min-width:0">
+                <div style="font-size:14px;font-weight:600;color:#101014">{{ t.who }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#3a3a42;margin-top:3px;text-wrap:pretty">{{ t.text }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;overflow-y:auto;background:#fff;padding:18px 15px 26px">
+    <h1 style="margin:0 0 4px;font-size:25px;font-weight:600;letter-spacing:-.7px;color:#101014">My Library</h1>
+    <p style="margin:0 0 16px;font-size:14.5px;color:#6a6a73">Manage all your video pitches here</p>
+    <div style="position:relative;margin-bottom:12px">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" style="position:absolute;left:14px;top:14px"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.4 15.4L20 20"></path></svg>
+      <input value="{{ librarySearch }}" onChange="{{ onLibrarySearch }}" placeholder="Search by video title" style="width:100%;padding:13px 16px 13px 40px;font-family:inherit;font-size:14.5px;color:#101014;background:#f5f5f7;border:none;border-radius:11px;outline:none" />
+    </div>
+    <div onClick="{{ goBot }}" style="display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;background:#5b5bf5;color:#fff;font-size:15px;font-weight:500;padding:13px 22px;margin-bottom:20px;cursor:pointer" style-hover="background:#4242e0">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="12.5" height="11" rx="2.5"></rect><path d="M15 11.2l5-3.1a.8.8 0 0 1 1.2.7v6.4a.8.8 0 0 1-1.2.7l-5-3.1z"></path></svg>
+      Create video
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="4">
+        <article onClick="{{ v.onOpen }}" style="background:#fff;border-radius:11px;border:1px solid {{ v.cardBorder }};box-shadow:0 1px 2px rgba(16,16,20,.06);overflow:hidden;cursor:pointer" style-hover="box-shadow:0 8px 20px rgba(16,16,20,.11)">
+          <div style="width:100%;aspect-ratio:1.99;background-image:url('uploads/Dashboard-1.jpg');background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+          <div style="padding:14px 15px 15px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <div style="font-size:13.5px;color:#8a8a93">{{ v.date }}</div>
+              <div style="flex:none;display:flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:{{ v.pillBg }};font-size:13px;font-weight:500;color:{{ v.pillColor }}">
+                <span style="width:6px;height:6px;border-radius:50%;background:{{ v.dot }}"></span>{{ v.visibility }}
+              </div>
+            </div>
+            <div style="font-size:15.5px;line-height:1.32;font-weight:500;letter-spacing:-.2px;color:#101014;text-wrap:pretty">{{ v.title }}</div>
+            <div style="display:flex;align-items:center;gap:9px;color:#3a3a42">
+              <div style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 12S5.8 6.2 12 6.2 21.6 12 21.6 12 18.2 17.8 12 17.8 2.4 12 2.4 12z"></path><circle cx="12" cy="12" r="2.6"></circle></svg>
+                {{ v.views }}
+              </div>
+              <span style="color:#c4c4cb">•</span>
+              <div style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.6l12 7.4-12 7.4z"></path></svg>
+                {{ v.plays }}
+              </div>
+              <span style="color:#c4c4cb">•</span>
+              <div style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.2" width="17.2" height="15" rx="3"></rect><path d="M8 3.4v3.2M16 3.4v3.2M3.4 10.2h17.2"></path></svg>
+                {{ v.meetings }}
+              </div>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#fff">
+    <div style="flex:none;display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid #f0f0f3">
+      <div onClick="{{ goLibrary }}" style="display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:500;color:#6a6a73;cursor:pointer" style-hover="color:#101014">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12h-15"></path><path d="M10.5 6l-6 6 6 6"></path></svg>
+        My Library
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:9px">
+        <button onClick="{{ toast }}" style="padding:10px 20px;border-radius:999px;border:none;background:#e4e6fb;font-family:inherit;font-size:14.5px;font-weight:500;color:#3b3bd9;cursor:pointer" style-hover="background:#d8dbf8">Update</button>
+        <button onClick="{{ share }}" style="display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:14.5px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5c4.5-5.8 9.2-7.4 13.2-7.6"></path><path d="M13.6 2.6l4.6 2.4-3.4 3.6"></path><path d="M4 12.5v6.2a1.4 1.4 0 0 0 1.4 1.4h13.2a1.4 1.4 0 0 0 1.4-1.4v-5"></path></svg>
+          Share
+        </button>
+      </div>
+    </div>
+    <div class="wc-col" style="flex:1;min-height:0;overflow-y:auto;padding:16px 15px 26px;display:flex;flex-direction:column;gap:16px">
+      <div style="position:relative;border-radius:11px;overflow:hidden">
+        <div style="width:100%;aspect-ratio:1.6;background-image:url('uploads/pitch-video.webp');background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:11px 13px;background:linear-gradient(to top,rgba(16,26,18,.72),rgba(16,26,18,.18))">
+          <div onClick="{{ togglePlay }}" style="flex:none;display:flex;cursor:pointer">
+            <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="4.5" width="4.5" height="15" rx="1.2"></rect><rect x="13.5" y="4.5" width="4.5" height="15" rx="1.2"></rect></svg>
+            </sc-if>
+            <sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5l13 7.5-13 7.5z"></path></svg>
+            </sc-if>
+          </div>
+          <div style="flex:1;height:3.5px;border-radius:999px;background:rgba(255,255,255,.42);position:relative">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:{{ progress }};background:#fff;border-radius:999px"></div>
+            <div style="position:absolute;left:{{ progress }};top:-3.5px;width:10.5px;height:10.5px;border-radius:50%;background:#fff"></div>
+          </div>
+          <div style="font-size:14px;font-weight:500;color:#fff;flex:none">{{ elapsed }}</div>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;cursor:pointer"><path d="M9 4.5H4.5V9"></path><path d="M15 4.5h4.5V9"></path><path d="M9 19.5H4.5V15"></path><path d="M15 19.5h4.5V15"></path></svg>
+        </div>
+      </div>
+      <div style="background:#f5f5f7;border-radius:11px;padding:14px 16px;display:flex;align-items:flex-start;gap:10px">
+        <div style="flex:1;min-width:0;font-size:17px;line-height:1.38;font-weight:500;letter-spacing:-.3px;color:#101014;text-wrap:pretty">Ethan <span style="color:#a6a6ae;font-weight:500">‹›</span> Daniel <span style="color:#c6c6cc">|</span> Streamline your processes with an increase in efficiency</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:4px;cursor:pointer"><path d="M15.2 4.6l4.2 4.2-10 10-4.9.7.7-4.9z"></path></svg>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;flex:none;border-radius:50%;background-image:url('uploads/ethan.webp');background-size:cover;background-position:center"></div>
+        <div>
+          <div style="font-size:15.5px;font-weight:600;color:#101014">Ethan Smith</div>
+          <div style="display:flex;align-items:center;gap:6px"><a href="#gong" style="font-size:14px">Gong</a><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5b5bf5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer"><path d="M15.2 4.6l4.2 4.2-10 10-4.9.7.7-4.9z"></path></svg></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button onClick="{{ toast }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:13px 22px;border-radius:999px;border:1px solid #d9d9e0;background:#fff;font-family:inherit;font-size:15px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#101014"><path d="M7 4.5l13 7.5-13 7.5z"></path></svg>
+          Add demo video
+        </button>
+        <button onClick="{{ toast }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:13px 22px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:15px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M8 3.5v3M16 3.5v3M3.5 10h17"></path></svg>
+          Add calendar
+        </button>
+      </div>
+      <div style="background:#f5f5f7;border-radius:11px;padding:16px 16px;display:flex;flex-direction:column;gap:13px">
+        <div>
+          <div style="font-size:16px;font-weight:500;color:#101014">Create a deal room with Ethan</div>
+          <div style="font-size:13.5px;color:#8a8a93;margin-top:3px;text-wrap:pretty">Get more information, ask questions and have every important detail in one place.</div>
+        </div>
+        <div onClick="{{ goRooms }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:11px 20px;border-radius:999px;border:1px solid #d9d9e0;background:#fff;font-size:14.5px;font-weight:500;color:#101014;cursor:pointer" style-hover="border-color:#b9b9c2">
+          <svg width="17" height="17" viewBox="0 0 20 20" fill="none"><path d="M6.8 8.8H13.2M6.8 11.6H11.2M18 10C18 14.4183 14.4183 18 10 18C8.72025 18 7.51069 17.6995 6.43802 17.1652C6.15297 17.0233 5.82715 16.976 5.51951 17.0583L3.73868 17.5348C2.96561 17.7416 2.25836 17.0344 2.46521 16.2613L2.94169 14.4805C3.02401 14.1729 2.97675 13.847 2.83477 13.562C2.30049 12.4893 2 11.2797 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10Z" stroke="#101014" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          Start chat
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;border-bottom:1px solid #f0f0f3;margin-top:4px">
+        <div onClick="{{ showFit }}" style="display:flex;align-items:center;gap:7px;padding:0 2px 10px;border-bottom:2.5px solid {{ fitUnderline }};cursor:pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4" width="15" height="16.5" rx="2.6"></rect><path d="M9 4V2.8h6V4"></path><path d="M8.8 12.4l2.4 2.4 4-4.4"></path></svg>
+          <span style="font-size:15px;font-weight:500;color:{{ fitColor }}">Fit check</span>
+        </div>
+        <div onClick="{{ showSummary }}" style="display:flex;align-items:center;gap:7px;padding:0 2px 10px;border-bottom:2.5px solid {{ sumUnderline }};cursor:pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.2h7.2L18.4 8v12.8H6z"></path><path d="M13 3.4V8.2h5"></path></svg>
+          <span style="font-size:15px;font-weight:500;color:{{ sumColor }}">Summary</span>
+        </div>
+        <div onClick="{{ showTranscript }}" style="display:flex;align-items:center;gap:7px;padding:0 2px 10px;border-bottom:2.5px solid {{ trUnderline }};cursor:pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h11M4 17h7"></path></svg>
+          <span style="font-size:15px;font-weight:500;color:{{ trColor }}">Transcript</span>
+        </div>
+      </div>
+      <sc-if value="{{ isFit }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <h3 style="margin:2px 0 10px;font-size:17px;font-weight:600;letter-spacing:-.3px;color:#101014">About Gong</h3>
+            <div style="border:1px solid #ececef;border-radius:8px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:1fr 1fr;background:#f7f7f8;border-bottom:1px solid #ececef">
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63;border-right:1px solid #ececef">Pain points</div>
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63">How Gong helps</div>
+              </div>
+              <sc-for list="{{ about }}" as="row" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #f0f0f3">
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014;border-right:1px solid #f0f0f3;text-wrap:pretty">{{ row.a }}</div>
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014;text-wrap:pretty">{{ row.b }}</div>
+                </div>
+              </sc-for>
+              <div onClick="{{ addBenefit }}" style="padding:11px 12px;display:flex;align-items:center;gap:8px;color:#5b5bf5;font-size:14.5px;font-weight:500;cursor:pointer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5b5bf5" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+                Add benefit
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 style="margin:2px 0 10px;font-size:17px;font-weight:600;letter-spacing:-.3px;color:#101014">Key criteria</h3>
+            <div style="border:1px solid #ececef;border-radius:8px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:1fr 1fr;background:#f7f7f8;border-bottom:1px solid #ececef">
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63;border-right:1px solid #ececef">Criteria</div>
+                <div style="padding:10px 12px;font-size:13px;color:#5a5a63">Response</div>
+              </div>
+              <sc-for list="{{ criteria }}" as="row" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #f0f0f3">
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014;border-right:1px solid #f0f0f3">{{ row.a }}</div>
+                  <div style="padding:11px 12px;font-size:13.5px;line-height:1.4;color:#101014">{{ row.b }}</div>
+                </div>
+              </sc-for>
+              <div onClick="{{ addCriteria }}" style="padding:11px 12px;display:flex;align-items:center;gap:8px;color:#5b5bf5;font-size:14.5px;font-weight:500;cursor:pointer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5b5bf5" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+                Add criteria
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px;padding-top:4px">
+          <p style="margin:0;font-size:14.5px;line-height:1.55;color:#3a3a42;text-wrap:pretty">Highlighted the potential for increased customer satisfaction through combined solutions. Mentioned potential cost savings and efficiency improvements for clients. Discussed the competitive advantage of offering a broader solution set.</p>
+          <div onClick="{{ showTranscript }}" style="font-size:15px;font-weight:500;color:#5b5bf5;cursor:pointer">View transcript</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isTranscript }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <sc-for list="{{ transcript }}" as="t" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px">
+              <div style="flex:none;width:42px;font-size:13px;font-weight:500;color:#a6a6ae;padding-top:2px">{{ t.at }}</div>
+              <div style="min-width:0">
+                <div style="font-size:14px;font-weight:600;color:#101014">{{ t.who }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#3a3a42;margin-top:3px;text-wrap:pretty">{{ t.text }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#fff">
+    <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 15px 22px">
+      <h1 style="margin:0 0 4px;font-size:25px;font-weight:600;letter-spacing:-.7px;color:#101014">Your Team</h1>
+      <p style="margin:0 0 16px;font-size:14.5px;line-height:1.45;color:#6a6a73;text-wrap:pretty">View other team members from your organization and their activities</p>
+      <button onClick="{{ toast }}" style="width:100%;padding:12px 26px;border-radius:999px;border:1px solid #d9d9e0;background:#fff;font-family:inherit;font-size:15px;font-weight:500;color:#101014;cursor:pointer;margin-bottom:14px" style-hover="background:#f7f7f8">Cancel subscription</button>
+      <div style="position:relative;margin-bottom:18px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" style="position:absolute;left:14px;top:14px"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.4 15.4L20 20"></path></svg>
+        <input value="{{ teamSearch }}" onChange="{{ onTeamSearch }}" placeholder="Search by Member name" style="width:100%;padding:13px 16px 13px 40px;font-family:inherit;font-size:14.5px;color:#101014;background:#f5f5f7;border:none;border-radius:11px;outline:none" />
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ members }}" as="m" hint-placeholder-count="4">
+          <div style="border:1px solid #ececef;border-radius:13px;padding:14px 15px 15px;display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;align-items:center;gap:12px;min-width:0">
+              <div style="width:44px;height:44px;flex:none;border-radius:50%;background-image:{{ m.bg }};background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:16px;font-weight:500;color:#101014;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.name }}</div>
+                <div style="font-size:13.5px;color:#a6a6ae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.email }}</div>
+              </div>
+              <div onClick="{{ m.onEdit }}" style="flex:none;width:38px;height:38px;border-radius:50%;background:#f1f1f4;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#e7e7eb">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 4.6l4.2 4.2-10 10-4.9.7.7-4.9z"></path></svg>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;color:#101014">
+              <div style="display:flex;align-items:center;gap:6px;font-size:14px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 12S5.8 6.2 12 6.2 21.6 12 21.6 12 18.2 17.8 12 17.8 2.4 12 2.4 12z"></path><circle cx="12" cy="12" r="2.6"></circle></svg>
+                {{ m.views }}
+              </div>
+              <span style="color:#c4c4cb">•</span>
+              <div style="display:flex;align-items:center;gap:6px;font-size:14px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.6l12 7.4-12 7.4z"></path></svg>
+                {{ m.plays }}
+              </div>
+              <span style="color:#c4c4cb">•</span>
+              <div style="display:flex;align-items:center;gap:6px;font-size:14px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.2" width="17.2" height="15" rx="3"></rect><path d="M8 3.4v3.2M16 3.4v3.2M3.4 10.2h17.2"></path></svg>
+                {{ m.meetings }}
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:13px;color:#6a6a73">Role</span><span style="font-size:14.5px;font-weight:{{ m.roleWeight }};color:#101014">{{ m.role }}</span></div>
+              <span style="color:#c4c4cb">•</span>
+              <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:13px;color:#6a6a73">Plan</span><span style="font-size:14.5px;font-weight:{{ m.planWeight }};color:#101014">{{ m.plan }}</span></div>
+              <div onClick="{{ m.onView }}" style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;border:1px solid #d9d9e0;font-size:14.5px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+                View
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15"></path><path d="M13.5 6l6 6-6 6"></path></svg>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:none;display:flex;align-items:center;justify-content:center;gap:14px;padding:12px;border-top:1px solid #f0f0f3">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4c4cb" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6l-6 6 6 6"></path></svg>
+      <div style="min-width:36px;height:36px;padding:0 12px;border-radius:999px;background:#f1f1f4;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#101014">1</div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4c4cb" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isBot }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#fff">
+    <div style="flex:none;display:flex;align-items:center;padding:12px 15px;border-bottom:1px solid #f0f0f3">
+      <div onClick="{{ goLibrary }}" style="display:flex;align-items:center;gap:8px;font-size:16px;font-weight:500;color:#5b5bf5;cursor:pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12h-15"></path><path d="M10.5 6l-6 6 6 6"></path></svg>
+        Back
+      </div>
+      <div onClick="{{ goPitch }}" style="margin-left:auto;padding:11px 26px;border-radius:999px;background:#5b5bf5;font-size:15px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">Continue</div>
+    </div>
+    <div style="flex:1;min-height:0;overflow-y:auto;padding:20px 15px 28px;display:flex;flex-direction:column;gap:20px">
+      <section style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-size:17px;font-weight:600;color:#101014">Your details</h2>
+        <div>
+          <div style="font-size:15px;color:#3a3a42;margin-bottom:8px">Display Role</div>
+          <input value="{{ role }}" onChange="{{ onRole }}" placeholder="e.g. SDR" style="width:100%;padding:14px 16px;font-family:inherit;font-size:15px;color:#101014;background:#f5f5f7;border:none;border-radius:9px;outline:none" style-focus="box-shadow:0 0 0 2px rgba(91,91,245,.28)" />
+        </div>
+        <div>
+          <div style="font-size:15px;color:#3a3a42;margin-bottom:8px">Display logo</div>
+          <button onClick="{{ toast }}" style="width:100%;padding:12px 30px;border-radius:999px;border:1px solid #d9d9e0;background:#fff;font-family:inherit;font-size:15px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">Upload</button>
+          <div style="font-size:13px;color:#a6a6ae;margin-top:8px">Supported formats: JPG, JPEG, PNG.</div>
+        </div>
+      </section>
+      <h2 style="margin:0;font-size:17px;font-weight:600;color:#101014;text-wrap:pretty">Prepare the AI prospect for your conversation</h2>
+      <section style="border:1px solid #ececef;border-radius:13px;padding:18px 16px 20px">
+        <div style="font-size:16px;color:#3a3a42">Prospect details</div>
+        <div style="font-size:13.5px;color:#a6a6ae;margin-top:3px;text-wrap:pretty">Customise your bot by providing details about your prospect</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:18px">
+          <div style="font-size:13.5px;color:#a6a6ae">Bot DP</div>
+          <div style="position:relative;width:96px;height:96px">
+            <div style="width:96px;height:96px;border-radius:50%;background-image:url('uploads/Ellipse 146.png');background-size:cover;background-position:center"></div>
+            <div onClick="{{ toast }}" style="position:absolute;right:-2px;bottom:-2px;width:32px;height:32px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(16,16,20,.18);display:flex;align-items:center;justify-content:center;cursor:pointer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 4.6l4.2 4.2-10 10-4.9.7.7-4.9z"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
+          <div>
+            <div style="font-size:15px;color:#3a3a42;margin-bottom:8px">Name</div>
+            <input value="{{ name }}" onChange="{{ onName }}" placeholder="Prospect name" style="width:100%;padding:14px 16px;font-family:inherit;font-size:15px;color:#101014;background:#f5f5f7;border:none;border-radius:9px;outline:none" style-focus="box-shadow:0 0 0 2px rgba(91,91,245,.28)" />
+          </div>
+          <div>
+            <div style="font-size:15px;color:#3a3a42;margin-bottom:8px">Voice</div>
+            <div onClick="{{ cycleVoice }}" style="display:flex;align-items:center;gap:10px;padding:13px 16px;background:#f5f5f7;border-radius:9px;cursor:pointer" style-hover="background:#efeff2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5b5bf5" stroke-width="1.8" stroke-linecap="round"><path d="M4 10.5v3M8 7v10M12 4.5v15M16 8v8M20 10.5v3"></path></svg>
+              <div style="flex:1;min-width:0;font-size:15px;color:#101014;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ voice }}</div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:15px;color:#3a3a42;margin-bottom:8px">Prospect role</div>
+            <input value="{{ prospectRole }}" onChange="{{ onProspectRole }}" placeholder="e.g. CEO" style="width:100%;padding:14px 16px;font-family:inherit;font-size:15px;color:#101014;background:#f5f5f7;border:none;border-radius:9px;outline:none" style-focus="box-shadow:0 0 0 2px rgba(91,91,245,.28)" />
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;gap:7px;font-size:15px;color:#3a3a42;margin-bottom:8px">
+              Prospect logo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M12 11v6"></path><path d="M12 7.6v.6"></path></svg>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div onClick="{{ toast }}" style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;padding:11px;border:1px solid #ececef;border-radius:9px;cursor:pointer" style-hover="background:#f7f7f8">
+                <div style="width:28px;height:28px;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+              </div>
+              <div onClick="{{ toast }}" style="flex:none;width:44px;height:44px;border-radius:50%;border:1px solid #ececef;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#f7f7f8">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3a3a42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.2a8 8 0 0 0-13.6-4.4L4 9"></path><path d="M4 4.6V9h4.4"></path><path d="M4 12.8a8 8 0 0 0 13.6 4.4L20 15"></path><path d="M20 19.4V15h-4.4"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section style="border:1px solid #ececef;border-radius:13px;padding:18px 16px 20px;display:flex;flex-direction:column;gap:24px">
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+          <div>
+            <div style="font-size:16px;color:#3a3a42">{{ g.title }}</div>
+            <div style="font-size:13.5px;color:#a6a6ae;margin-top:3px;text-wrap:pretty">{{ g.hint }}</div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+              <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+                <div onMouseEnter="{{ it.onEnter }}" onMouseLeave="{{ it.onLeave }}" style="display:flex;align-items:center;gap:8px;padding:3px 12px 3px 14px;background:{{ it.rowBg }};border:1px solid {{ it.rowBorder }};border-radius:9px">
+                  <input value="{{ it.text }}" onChange="{{ it.onChange }}" onFocus="{{ it.onFocus }}" onBlur="{{ it.onBlur }}" placeholder="{{ g.placeholder }}" style="flex:1;min-width:0;padding:11px 0;font-family:inherit;font-size:14.5px;color:#101014;background:transparent;border:none;outline:none" />
+                  <sc-if value="{{ it.showTrash }}" hint-placeholder-val="{{ false }}">
+                    <div onClick="{{ it.onRemove }}" style="flex:none;display:flex;padding:4px;cursor:pointer">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6a6a73" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6.8h15.2"></path><path d="M9.4 6.8V4.6h5.2v2.2"></path><path d="M6.4 6.8l.9 12.2a1.4 1.4 0 0 0 1.4 1.3h6.6a1.4 1.4 0 0 0 1.4-1.3l.9-12.2"></path><path d="M10.4 10.6v6M13.6 10.6v6"></path></svg>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div onClick="{{ g.onAdd }}" style="display:inline-flex;align-items:center;gap:9px;margin:14px 0 0 4px;font-size:15px;font-weight:500;color:#5b5bf5;cursor:pointer">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5b5bf5" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+              {{ g.addLabel }}
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isPitch }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+    <div style="flex:1;min-height:0;background:{{ stageBg }};display:flex;flex-direction:column;gap:14px;padding:18px 16px;overflow:hidden">
+      <div style="position:relative;flex:1;min-height:0;border-radius:16px;overflow:hidden;box-shadow:0 12px 34px rgba(8,24,14,.18)">
+        <div style="position:absolute;inset:0;background-image:{{ camBg }};background-size:cover;background-position:center;filter:{{ camFilter }}"></div>
+        <div style="position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:#fff;font-size:14px;font-weight:500;color:#101014;box-shadow:0 1px 4px rgba(8,24,14,.12)">
+          <sc-if value="{{ recording }}" hint-placeholder-val="{{ false }}">
+            <span style="width:8px;height:8px;border-radius:50%;background:#f26a68"></span>
+          </sc-if>
+          {{ selfLabel }}
+        </div>
+        <div style="position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:8px;padding:6px 13px 6px 9px;border-radius:999px;background:#fff;box-shadow:0 1px 4px rgba(8,24,14,.12)">
+          <div style="width:20px;height:20px;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+          <span style="font-size:13.5px;font-weight:600;color:#101014">Your logo</span>
+        </div>
+      </div>
+      <div style="position:relative;flex:1;min-height:0;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.17);display:flex;align-items:center;justify-content:center">
+        <div style="position:relative;width:54%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background-image:{{ blobBg }};background-size:contain;background-position:center;background-repeat:no-repeat">
+          <div style="width:47%;aspect-ratio:1;border-radius:50%;background-image:url('uploads/Ellipse 146.png');background-size:cover;background-position:center;border:3px solid #fff;box-shadow:0 2px 10px rgba(8,24,14,.16)"></div>
+        </div>
+        <div style="position:absolute;left:14px;top:14px;padding:7px 14px;border-radius:999px;background:#fff;font-size:14px;font-weight:500;color:#101014;box-shadow:0 1px 4px rgba(8,24,14,.12)">Daniel, CEO (AI)</div>
+        <div style="position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:8px;padding:6px 13px 6px 9px;border-radius:999px;background:#fff;box-shadow:0 1px 4px rgba(8,24,14,.12)">
+          <div style="width:20px;height:20px;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+          <span style="font-size:13.5px;font-weight:600;color:#101014">Collective</span>
+        </div>
+      </div>
+    </div>
+    <sc-if value="{{ pitchIdle }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none;background:#fff;padding:14px 16px 18px;display:flex;flex-direction:column;gap:12px">
+        <button onClick="{{ startRecording }}" style="width:100%;padding:14px 40px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:17px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">Start recording</button>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div onClick="{{ goBot }}" style="display:flex;align-items:center;justify-content:center;gap:9px;flex:1;padding:12px 18px;border-radius:999px;border:1px solid #d9d9e0;font-size:15px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12h-15"></path><path d="M10.5 6l-6 6 6 6"></path></svg>
+            Back
+          </div>
+          <div onClick="{{ openSettings }}" style="display:flex;align-items:center;justify-content:center;gap:9px;flex:1;padding:12px 18px;border-radius:999px;border:1px solid #d9d9e0;font-size:15px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2c-5 0-8.8 3.6-8.8 8.4 0 4.4 3.3 7.6 7.4 7.6 1.3 0 2.1-.7 2.1-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.4-.7-.4-1.1 0-.9.7-1.6 1.7-1.6h1.9c3 0 5.4-2.2 5.4-5.2 0-3.1-3.4-5-8.8-5z"></path><circle cx="7.6" cy="10.4" r="1.1" fill="#101014" stroke="none"></circle><circle cx="11" cy="7.4" r="1.1" fill="#101014" stroke="none"></circle><circle cx="15.2" cy="8.4" r="1.1" fill="#101014" stroke="none"></circle></svg>
+            Settings
+          </div>
+          <div onClick="{{ toast }}" style="flex:none;width:46px;height:46px;border-radius:50%;border:1px solid #d9d9e0;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#f7f7f8">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8v.3"></path><path d="M12 17.1v.4"></path></svg>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ recording }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:none;background:#fff;padding:14px 16px 18px;display:flex;flex-direction:column;gap:12px">
+        <button onClick="{{ stopRecording }}" style="width:100%;padding:14px 40px;border-radius:999px;border:none;background:#f26a68;font-family:inherit;font-size:17px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#e6524f">Stop recording</button>
+        <div onClick="{{ retry }}" style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:16px;font-weight:500;color:#3b3bd9;cursor:pointer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b3bd9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.2a8 8 0 0 0-13.6-4.4L4 9"></path><path d="M4 4.6V9h4.4"></path><path d="M4 12.8a8 8 0 0 0 13.6 4.4L20 15"></path><path d="M20 19.4V15h-4.4"></path></svg>
+          Retry
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:0;right:0;top:84px;bottom:0;background:#fff;z-index:3;overflow-y:auto;padding:20px 17px 26px;display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;background:#f7f7f8">
+        <div style="position:relative;width:44px;height:44px;flex:none">
+          <div style="width:44px;height:44px;border-radius:50%;background-image:url('uploads/Ellipse 144.png');background-size:cover;background-position:center;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(16,16,20,.12)"></div>
+          <div style="position:absolute;right:-1px;bottom:-1px;width:15px;height:15px;border-radius:50%;background:#2f80ed;border:1.5px solid #f7f7f8;display:flex;align-items:center;justify-content:center"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+        </div>
+        <div style="min-width:0">
+          <div style="font-size:16px;font-weight:600;color:#101014">Ethan Smith</div>
+          <div style="font-size:13.5px;color:#a6a6ae">ethan.smith@gong.com</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:11.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#a6a6ae;padding:0 4px 6px">Workspace</div>
+        <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:{{ navHomeBg }};cursor:pointer" style-hover="background:#f1f1f4">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.2 12 3.8l8.5 6.4V19a1.6 1.6 0 0 1-1.6 1.6H5.1A1.6 1.6 0 0 1 3.5 19z"></path><path d="M9.6 20.6v-5.5a1 1 0 0 1 1-1h2.8a1 1 0 0 1 1 1v5.5"></path></svg>
+          <span style="flex:1;font-size:16.5px;font-weight:{{ navHomeWeight }};color:#101014">Home</span>
+        </div>
+        <div onClick="{{ goLibrary }}" style="display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:{{ navLibraryBg }};cursor:pointer" style-hover="background:#f1f1f4">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="3"></rect><path d="M10.2 9.6l4.6 2.4-4.6 2.4z"></path></svg>
+          <span style="flex:1;font-size:16.5px;font-weight:{{ navLibraryWeight }};color:#101014">Library</span>
+        </div>
+        <div onClick="{{ goRooms }}" style="display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:{{ navRoomsBg }};cursor:pointer" style-hover="background:#f1f1f4">
+          <svg width="21" height="21" viewBox="0 0 20 20" fill="none"><path d="M6.8 8.8H13.2M6.8 11.6H11.2M18 10C18 14.4183 14.4183 18 10 18C8.72025 18 7.51069 17.6995 6.43802 17.1652C6.15297 17.0233 5.82715 16.976 5.51951 17.0583L3.73868 17.5348C2.96561 17.7416 2.25836 17.0344 2.46521 16.2613L2.94169 14.4805C3.02401 14.1729 2.97675 13.847 2.83477 13.562C2.30049 12.4893 2 11.2797 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10Z" stroke="#101014" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          <span style="flex:1;font-size:16.5px;font-weight:{{ navRoomsWeight }};color:#101014">Rooms</span>
+          <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+            <div style="min-width:20px;height:20px;border-radius:999px;background:#101014;color:#fff;font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 6px">{{ unreadCount }}</div>
+          </sc-if>
+        </div>
+        <div onClick="{{ goTeam }}" style="display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:{{ navTeamBg }};cursor:pointer" style-hover="background:#f1f1f4">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.2" cy="9" r="3.4"></circle><path d="M3.4 19.4c.5-3.2 2.9-5 5.8-5s5.3 1.8 5.8 5"></path><path d="M15.4 6.2a3.2 3.2 0 0 1 0 6"></path><path d="M17.2 14.8c2.1.5 3.2 2.1 3.5 4.6"></path></svg>
+          <span style="flex:1;font-size:16.5px;font-weight:{{ navTeamWeight }};color:#101014">Team</span>
+          <div style="min-width:20px;height:20px;border-radius:999px;background:#101014;color:#fff;font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 6px">1</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:11.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#a6a6ae;padding:0 4px 6px">Personalisation</div>
+        <div onClick="{{ goBot }}" style="display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:{{ navBotBg }};cursor:pointer" style-hover="background:#f1f1f4">
+          <div style="width:21px;height:21px;flex:none;background-image:url('uploads/Subtract.png');background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+          <span style="flex:1;font-size:16.5px;font-weight:{{ navBotWeight }};color:#101014">Bot personalisation</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+        </div>
+        <div onClick="{{ goPitch }}" style="display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:{{ navPitchBg }};cursor:pointer" style-hover="background:#f1f1f4">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="12.5" height="11" rx="2.5"></rect><path d="M15 11.2l5-3.1a.8.8 0 0 1 1.2.7v6.4a.8.8 0 0 1-1.2.7l-5-3.1z"></path></svg>
+          <span style="flex:1;font-size:16.5px;font-weight:{{ navPitchWeight }};color:#101014">Pitch personalisation</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"></path></svg>
+        </div>
+      </div>
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:6px;border-top:1px solid #f0f0f3;padding-top:14px">
+        <div onClick="{{ toast }}" style="display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:12px;cursor:pointer" style-hover="background:#f7f7f8">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6a6a73" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"></circle><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8v.3"></path><path d="M12 17.1v.4"></path></svg>
+          <span style="flex:1;font-size:15.5px;font-weight:500;color:#6a6a73">Help &amp; support</span>
+        </div>
+        <div onClick="{{ toast }}" style="display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:12px;cursor:pointer" style-hover="background:#f7f7f8">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6a6a73" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 20.5H5.6A1.6 1.6 0 0 1 4 18.9V5.1a1.6 1.6 0 0 1 1.6-1.6h3.9"></path><path d="M15 8l4 4-4 4"></path><path d="M19 12h-9"></path></svg>
+          <span style="flex:1;font-size:15.5px;font-weight:500;color:#6a6a73">Log out</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ settingsOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSettings }}" style="position:absolute;left:0;right:0;top:84px;bottom:0;background:rgba(16,16,20,.45);z-index:4;display:flex;flex-direction:column;justify-content:flex-end">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:20px 20px 0 0;display:flex;flex-direction:column;max-height:94%">
+        <div style="flex:none;display:flex;align-items:center;padding:18px 18px 14px">
+          <h2 style="margin:0;font-size:21px;font-weight:600;letter-spacing:-.4px;color:#101014">Settings</h2>
+          <div onClick="{{ closeSettings }}" style="margin-left:auto;display:flex;padding:6px;cursor:pointer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg>
+          </div>
+        </div>
+        <div style="flex:none;display:flex;gap:8px;padding:0 18px 14px;overflow-x:auto">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+            <div onClick="{{ s.onPick }}" style="flex:none;padding:10px 16px;border-radius:999px;background:{{ s.bg }};font-size:14.5px;font-weight:{{ s.weight }};color:#101014;cursor:pointer">{{ s.label }}</div>
+          </sc-for>
+        </div>
+        <div style="flex:1;min-height:0;overflow-y:auto;margin:0 18px 18px;background:#f7f7f8;border-radius:14px;padding:18px">
+          <sc-if value="{{ isPickBg }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="font-size:15px;color:#3a3a42;margin-bottom:16px;text-wrap:pretty">Choose a virtual background for your video pitch</div>
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+                <sc-for list="{{ themes }}" as="t" hint-placeholder-count="8">
+                  <div onClick="{{ t.onPick }}" style="background:#fff;border:2px solid {{ t.border }};border-radius:13px;padding:8px;cursor:pointer">
+                    <div style="width:100%;aspect-ratio:.84;border-radius:9px;background-image:{{ t.img }};background-size:cover;background-position:center"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isCustomBg }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-size:15px;color:#3a3a42;margin-bottom:16px;text-wrap:pretty">Upload a custom background for your video pitch</div>
+              <div style="border:1.5px dashed #c4c4cb;border-radius:13px;padding:24px 18px;display:flex;flex-direction:column;align-items:center;gap:14px;background:#fff">
+                <button onClick="{{ toast }}" style="display:flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;border:1px solid #d9d9e0;background:#fff;font-family:inherit;font-size:15px;font-weight:500;color:#101014;cursor:pointer" style-hover="background:#f7f7f8">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15.6V4.4"></path><path d="M7.8 8.6L12 4.4l4.2 4.2"></path><path d="M4.6 15.4v3a1.6 1.6 0 0 0 1.6 1.6h11.6a1.6 1.6 0 0 0 1.6-1.6v-3"></path></svg>
+                  Upload image
+                </button>
+                <div style="font-size:13.5px;color:#a6a6ae;text-align:center;text-wrap:pretty">Supported image formats: JPG, JPEG, PNG. The file size must be less than 5 MB.</div>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isBotColor }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-size:15px;color:#3a3a42;margin-bottom:16px;text-wrap:pretty">Select a bot color that complements your video background.</div>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+                <sc-for list="{{ blobs }}" as="b" hint-placeholder-count="3">
+                  <div onClick="{{ b.onPick }}" style="background:#fff;border:1.5px solid {{ b.border }};border-radius:13px;padding:12px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+                    <div style="width:100%;aspect-ratio:1;background-image:{{ b.img }};background-size:contain;background-position:center;background-repeat:no-repeat"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isVideoBg }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="display:flex;justify-content:center">
+                <div style="width:100%;max-width:240px;aspect-ratio:1.06;border-radius:11px;background-image:{{ camBg }};background-size:cover;background-position:center;filter:{{ camFilter }}"></div>
+              </div>
+              <div style="font-size:15px;color:#3a3a42;margin:18px 0 12px">Choose background</div>
+              <div style="display:flex;gap:12px;overflow-x:auto;padding-bottom:4px">
+                <sc-for list="{{ videoBgs }}" as="v" hint-placeholder-count="3">
+                  <div onClick="{{ v.onPick }}" style="flex:none;background:#fff;border:2px solid {{ v.border }};border-radius:13px;padding:6px;cursor:pointer">
+                    <div style="width:88px;aspect-ratio:1.04;border-radius:9px;background-image:{{ v.img }};background-color:{{ v.fallback }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#fff">{{ v.label }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="flex:none;padding:0 18px 20px">
+          <button onClick="{{ closeSettings }}" style="width:100%;padding:14px 36px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:17px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">Update</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ editOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeEdit }}" style="position:absolute;left:0;right:0;top:84px;bottom:0;background:rgba(16,16,20,.4);z-index:4;display:flex;flex-direction:column;justify-content:flex-end">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:20px 20px 0 0;padding:20px 18px 22px;max-height:94%;overflow-y:auto">
+        <div style="display:flex;align-items:center">
+          <h2 style="margin:0;font-size:20px;font-weight:600;letter-spacing:-.3px;color:#101014">Edit profile details</h2>
+          <div onClick="{{ closeEdit }}" style="margin-left:auto;display:flex;padding:6px;cursor:pointer">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:13px;margin-top:18px">
+          <div style="width:48px;height:48px;flex:none;border-radius:50%;background-image:{{ editBg }};background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+          <div style="font-size:19px;font-weight:600;letter-spacing:-.3px;color:#101014">{{ editName }}</div>
+        </div>
+        <div style="margin-top:22px">
+          <div style="font-size:17px;font-weight:600;color:#101014">Role</div>
+          <div style="font-size:14px;color:#6a6a73;margin-top:4px;text-wrap:pretty">Manage team’s billing with Admin access.</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:#f5f5f7;border-radius:11px;margin-top:10px;cursor:not-allowed">
+            <span style="flex:1;font-size:16px;color:#a6a6ae">{{ editRole }}</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg>
+          </div>
+        </div>
+        <div style="margin-top:18px">
+          <div style="font-size:17px;font-weight:600;color:#101014">Plan</div>
+          <div style="font-size:14px;color:#6a6a73;margin-top:4px">Switch between Starter and Plus seats.</div>
+          <div onClick="{{ togglePlan }}" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:#f5f5f7;border-radius:11px;margin-top:10px;cursor:pointer" style-hover="background:#efeff2">
+            <span style="flex:1;font-size:16px;color:#101014">{{ editPlan }}</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg>
+          </div>
+        </div>
+        <button onClick="{{ confirmEdit }}" style="width:100%;margin-top:22px;padding:14px 36px;border-radius:999px;border:none;background:#5b5bf5;font-family:inherit;font-size:17px;font-weight:500;color:#fff;cursor:pointer" style-hover="background:#4242e0">Confirm</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ memberOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:0;right:0;top:84px;bottom:0;background:rgba(16,16,20,.4);z-index:4;display:flex;flex-direction:column;justify-content:flex-end">
+      <div style="flex:none;display:flex;justify-content:center;padding:12px">
+        <div onClick="{{ closeMember }}" style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(16,16,20,.2)">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#101014" stroke-width="1.9" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"></path></svg>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;background:#fff;border-radius:18px 18px 0 0;overflow-y:auto;padding:20px 16px 24px">
+        <div style="display:flex;align-items:center;gap:13px">
+          <div style="width:48px;height:48px;flex:none;border-radius:50%;background-image:{{ memberBg }};background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+          <div style="min-width:0">
+            <div style="font-size:19px;font-weight:600;letter-spacing:-.3px;color:#101014">{{ memberName }}</div>
+            <div style="font-size:14px;color:#a6a6ae">{{ memberEmail }}</div>
+          </div>
+        </div>
+        <div style="position:relative;margin:18px 0 18px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a6a6ae" stroke-width="2" stroke-linecap="round" style="position:absolute;left:14px;top:14px"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.4 15.4L20 20"></path></svg>
+          <input value="{{ memberSearch }}" onChange="{{ onMemberSearch }}" placeholder="Search by video title" style="width:100%;padding:13px 16px 13px 40px;font-family:inherit;font-size:14.5px;color:#101014;background:#f5f5f7;border:none;border-radius:11px;outline:none" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ memberVideos }}" as="v" hint-placeholder-count="4">
+            <article onClick="{{ v.onOpen }}" style="background:#fff;border-radius:11px;border:1px solid #ececef;box-shadow:0 1px 2px rgba(16,16,20,.06);overflow:hidden;cursor:pointer" style-hover="box-shadow:0 8px 20px rgba(16,16,20,.11)">
+              <div style="width:100%;aspect-ratio:1.99;background-image:url('uploads/Dashboard-1.jpg');background-size:cover;background-position:center;background-color:#f1f1f4"></div>
+              <div style="padding:13px 14px 14px;display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                  <div style="font-size:13px;color:#8a8a93">{{ v.date }}</div>
+                  <div style="flex:none;display:flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:#e8f7ec;font-size:12.5px;font-weight:500;color:#1e7a43">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#2fb35e"></span>Public
+                  </div>
+                </div>
+                <div style="font-size:15px;line-height:1.32;font-weight:500;letter-spacing:-.2px;color:#101014;text-wrap:pretty">{{ v.title }}</div>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:16px;right:16px;bottom:22px;z-index:6;display:flex;justify-content:center">
+      <div style="max-width:100%;padding:12px 18px;border-radius:999px;background:#101014;color:#fff;font-size:14px;font-weight:500;box-shadow:0 8px 22px rgba(16,16,20,.28)">{{ toastText }}</div>
+    </div>
+  </sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:920}}">
+const THEMES = [
+  { key: "forest", file: "uploads/Themes.png", css: 'url("uploads/Dashboard-373ff6a6.jpg") center/cover no-repeat' },
+  { key: "autumn", file: "uploads/Themes-1.png", css: "radial-gradient(110% 80% at 30% 92%, #f4e58a 0%, rgba(244,229,138,0) 60%), linear-gradient(135deg, #e5a73c 0%, #bfcb3f 45%, #35a83a 100%)" },
+  { key: "summer", file: "uploads/Themes-2.png", css: "radial-gradient(110% 80% at 78% 30%, #f6a0a8 0%, rgba(246,160,168,0) 58%), linear-gradient(135deg, #f4644a 0%, #fb8f5f 55%, #f9a97e 100%)" },
+  { key: "rainbow", file: "uploads/Themes-3.png", css: "radial-gradient(90% 70% at 70% 20%, #c88df6 0%, rgba(200,141,246,0) 55%), linear-gradient(115deg, #e8564a 0%, #e0b13c 28%, #7bc55f 52%, #6f7bf7 76%, #3fb9a8 100%)" },
+  { key: "sky", file: "uploads/Themes-4.png", css: "radial-gradient(90% 70% at 32% 22%, #a7bdff 0%, rgba(167,189,255,0) 60%), linear-gradient(135deg, #79b8fb 0%, #5d64f7 100%)" },
+  { key: "ocean", file: "uploads/Themes-5.png", css: "radial-gradient(100% 80% at 78% 34%, #3ec9b4 0%, rgba(62,201,180,0) 62%), linear-gradient(135deg, #1f7fe0 0%, #14a0a4 100%)" },
+  { key: "space", file: "uploads/Themes-6.png", css: "radial-gradient(90% 70% at 30% 26%, #123ba8 0%, rgba(18,59,168,0) 60%), linear-gradient(140deg, #1b1560 0%, #0b1f6e 55%, #14142e 100%)" },
+  { key: "charcoal", file: "uploads/Themes-7.png", css: "radial-gradient(90% 70% at 30% 30%, #4a4a4d 0%, rgba(74,74,77,0) 62%), linear-gradient(140deg, #3a3a3c 0%, #262628 100%)" }
+];
+const BLOBS = ["uploads/final-glass-blob 4.png", "uploads/final-glass-blob 3.png", "uploads/final-glass-blob 2.png"];
+const VIDEO_BGS = [
+  { key: "none", label: "None", file: null },
+  { key: "blur", label: "Blur", file: null },
+  { key: "studio", label: "", file: "uploads/Dashboard-2.jpg" }
+];
+const MEMBERS = [
+  { name: "Mathew Adams", email: "mathew.adams@gong.com", img: "uploads/Ellipse 12746.png", views: 302, plays: 12, meetings: 10, role: "Admin", plan: "Plus" },
+  { name: "Natasha Beasley", email: "natasha.beasley@gong.com", img: "uploads/Ellipse 147.png", views: 104, plays: 9, meetings: 5, role: "Member", plan: "Plus" },
+  { name: "Daniel Scott", email: "daniel.scott@gong.com", img: "uploads/Ellipse 146.png", views: 68, plays: 4, meetings: 4, role: "Member", plan: "Starter" },
+  { name: "Sarah Martin", email: "sarah.martin@gong.com", img: "uploads/Frame 55.png", views: 40, plays: 2, meetings: 0, role: "Member", plan: "Plus" }
+];
+const ROOMS = [
+  { name: "Daniel (LinkedIn)", short: "Daniel (LinkedIn)", time: "02:03 pm", img: "uploads/daniel.webp", unread: true }
+];
+const VOICES = ["American-Male-middle-aged", "American-Female-young", "British-Male-young", "Indian-Female-middle-aged"];
+const TITLE = "Ethan \u2039\u203a Daniel: Streamline your processes with an increas\u2026";
+
+const START_VIEW = (function(){ try { var v = new URLSearchParams(location.search).get("screen"); return ["home","rooms","library","team","bot","pitch"].indexOf(v) >= 0 ? v : "home"; } catch (e) { return "home"; } })();
+
+class Component extends DCLogic {
+  state = {
+    view: START_VIEW, drawer: false, toast: null,
+    query: "", search: "", librarySearch: "", teamSearch: "", memberSearch: "", draft: "",
+    roomIdx: null, roomTab: "messages", read: {},
+    extraMsgs: {},
+    detailTab: "fit", playing: false, elapsed: 0, booked: false,
+    newVideo: false,
+    editIdx: null, memberIdx: null, plans: {},
+    aboutExtra: 0, criteriaExtra: 0,
+    settings: false, section: "pick", theme: "forest", blob: 0, videoBg: "none",
+    recording: false,
+    role: "SDR", name: "Daniel Martin", voiceIdx: 0, prospectRole: "CEO",
+    hovered: null, focused: null,
+    triggers: ["Complex UI and steep learning curve", "Lack of customization and integrations"],
+    pains: ["Complex UI and steep learning curve", "Lack of customization and integrations", "No dedicated 24x7 support"],
+    objections: ["Too difficult and time-consuming to switch", "No budget for such a tool", "No need to change, our current tool works fine"]
+  };
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.toastTimer); }
+  nav(view, extra) { this.setState(Object.assign({ view, drawer: false, settings: false, editIdx: null, memberIdx: null }, extra || {})); }
+  flash(text) {
+    clearTimeout(this.toastTimer);
+    this.setState({ toast: text });
+    this.toastTimer = setTimeout(() => this.setState({ toast: null }), 1900);
+  }
+  tick(on) {
+    clearInterval(this.timer);
+    if (on) this.timer = setInterval(() => this.setState(s => ({ elapsed: s.elapsed + 1 })), 1000);
+  }
+  fmt(n) {
+    const m = Math.floor(n / 60), s = n % 60;
+    return (m < 10 ? "0" + m : m) + " : " + (s < 10 ? "0" + s : s);
+  }
+  group(key, title, hint, addLabel, placeholder) {
+    const list = this.state[key];
+    return {
+      title, hint, addLabel, placeholder,
+      items: list.map((text, i) => {
+        const id = key + ":" + i;
+        const focused = this.state.focused === id;
+        const hovered = this.state.hovered === id;
+        return {
+          text,
+          rowBg: focused ? "#fff" : "#f7f7f8",
+          rowBorder: focused ? "#5b5bf5" : (hovered ? "#e2e2e6" : "transparent"),
+          showTrash: focused || hovered,
+          onEnter: () => this.setState({ hovered: id }),
+          onLeave: () => this.setState(s => (s.hovered === id ? { hovered: null } : null)),
+          onFocus: () => this.setState({ focused: id }),
+          onBlur: () => this.setState(s => (s.focused === id ? { focused: null } : null)),
+          onChange: e => { const n = list.slice(); n[i] = e.target.value; this.setState({ [key]: n }); },
+          onRemove: () => this.setState({ [key]: list.filter((_, j) => j !== i), hovered: null, focused: null })
+        };
+      }),
+      onAdd: () => this.setState({ [key]: list.concat(""), focused: key + ":" + list.length, hovered: null })
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const v = s.view;
+    const room = s.roomIdx === null ? null : ROOMS[s.roomIdx];
+    const em = s.editIdx === null ? null : MEMBERS[s.editIdx];
+    const sm = s.memberIdx === null ? null : MEMBERS[s.memberIdx];
+    const planOf = i => s.plans[i] || MEMBERS[i].plan;
+    const unread = ROOMS.filter((r, i) => r.unread && !s.read[i]).length;
+    const tileTitle = "30% cost reduction in server infra costs";
+    const grey = { border: "#ececef", badgeBg: "#f1f1f4", badgeColor: "#6a6a73", crown: false };
+    const openPitch = () => this.nav("detail", { detailTab: "fit", playing: false, elapsed: 0 });
+    const pub = { visibility: "Public", pillBg: "#e8f7ec", pillColor: "#1e7a43", dot: "#2fb35e", cardBorder: "#ececef" };
+    const priv = { visibility: "Private", pillBg: "#f1f1f4", pillColor: "#5a5a63", dot: "#a6a6ae", cardBorder: "#ececef" };
+    const theme = THEMES.find(t => t.key === s.theme) || THEMES[0];
+    const vb = VIDEO_BGS.find(x => x.key === s.videoBg) || VIDEO_BGS[0];
+    const camFile = vb.file || "uploads/image3.png";
+    const baseThread = [
+      { who: "WarmCall", at: "12:45 pm", img: "uploads/Subtract.png", text: "Hi there!\nDaniel is interested to know more information about your offering. Use this room to chat, ask questions, and have every important detail in one place. Happy chatting!" },
+      { who: "Daniel", at: "1 July, 11:00 am", img: "uploads/daniel.webp", text: "Hey Ethan,\nFound your pitch really impressive, let\u2019s connect here to discuss more about it. Thanks!" }
+    ];
+    const extra = (s.extraMsgs[s.roomIdx] || []).map(t => ({ who: "Ethan", at: "Just now", img: "uploads/ethan.webp", text: t }));
+    const aboutBase = [
+      { a: "Hard to onboard new sales teams quickly", b: "AI roleplays that bring down onboarding time from months to weeks" },
+      { a: "Lack of customization and integrations", b: "AI roleplays that bring down onboarding time from months to weeks" },
+      { a: "Onboarding support", b: "Personalized demo" }
+    ];
+    const criteriaBase = [
+      { a: "Pricing plans", b: "$25/seat/month" },
+      { a: "Free trial", b: "14-day free trial" },
+      { a: "SOC2 security", b: "Yes" },
+      { a: "Onboarding support", b: "Personalized demo" },
+      { a: "Security", b: "NA" }
+    ];
+    const videos = (s.newVideo ? [{ date: "Just now", views: 0, plays: 0, meetings: 0, ...priv, cardBorder: "#5b5bf5" }] : []).concat([
+      { date: "15 July 2024", views: 32, plays: 12, meetings: 1, ...pub },
+      { date: "12 July 2024", views: 28, plays: 9, meetings: 2, ...pub },
+      { date: "09 July 2024", views: 14, plays: 6, meetings: 0, ...priv }
+    ]).map(x => ({ ...x, title: TITLE, onOpen: openPitch }));
+
+    return {
+      isHome: v === "home", isRooms: v === "rooms", isRoom: v === "room", isLibrary: v === "library",
+      isDetail: v === "detail", isTeam: v === "team", isBot: v === "bot", isPitch: v === "pitch",
+      drawerOpen: s.drawer, drawerClosed: !s.drawer,
+      burgerBg: s.drawer ? "#101014" : "#fff",
+      burgerBorder: s.drawer ? "#101014" : "#ececef",
+      toggleDrawer: () => this.setState(st => ({ drawer: !st.drawer })),
+      goHome: () => this.nav("home"),
+      goRooms: () => this.nav("rooms"),
+      goLibrary: () => this.nav("library"),
+      goTeam: () => this.nav("team"),
+      goBot: () => this.nav("bot"),
+      goPitch: () => { this.tick(false); this.nav("pitch", { recording: false, elapsed: 0 }); },
+      navHomeBg: v === "home" ? "#ececfd" : "transparent",
+      navHomeWeight: v === "home" ? 600 : 500,
+      navLibraryBg: (v === "library" || v === "detail") ? "#ececfd" : "transparent",
+      navLibraryWeight: (v === "library" || v === "detail") ? 600 : 500,
+      navRoomsBg: (v === "rooms" || v === "room") ? "#ececfd" : "transparent",
+      navRoomsWeight: (v === "rooms" || v === "room") ? 600 : 500,
+      navTeamBg: v === "team" ? "#ececfd" : "transparent",
+      navTeamWeight: v === "team" ? 600 : 500,
+      navBotBg: v === "bot" ? "#ececfd" : "transparent",
+      navBotWeight: v === "bot" ? 600 : 500,
+      navPitchBg: v === "pitch" ? "#ececfd" : "transparent",
+      navPitchWeight: v === "pitch" ? 600 : 500,
+      hasUnread: unread > 0,
+      unreadCount: String(unread),
+
+      query: s.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      prompts: [
+        "LMS software with built in content authoring for 500 employees",
+        "AI-powered customer service with real-time chat",
+        "An affordable SEO tool ideal for beginners and small businesses"
+      ].map(text => ({ text, onPick: () => { this.setState({ query: text }); this.flash("Searching WarmCall\u2026"); } })),
+      tiles: [
+        { img: "uploads/Dashboard-1.jpg", name: "Sarah Martin", company: "Gong", initials: "SM", avatarBg: "#f3ddd2", rank: "#1", border: "#f0b429", badgeBg: "#fbe3ab", badgeColor: "#7a5a12", crown: true },
+        { img: "uploads/Dashboard-2.jpg", name: "Mathew Adams", company: "Skywards", initials: "MA", avatarBg: "#d8dcf7", rank: "#2", border: "#c3cbf6", badgeBg: "#e2e7fb", badgeColor: "#4a5580", crown: true },
+        { img: "uploads/Dashboard.jpg", name: "Natasha Beasley", company: "Salesforce", initials: "NB", avatarBg: "#e6d9c8", rank: "#3", border: "#c99a63", badgeBg: "#fbd9c2", badgeColor: "#7d4b23", crown: true },
+        { img: "uploads/Dashboard1.jpg", name: "Daniel Scott", company: "Siemens", initials: "DS", avatarBg: "#d6e2ea", rank: "#4", ...grey },
+        { img: "uploads/Dashboard2.jpg", name: "Natasha Beasley", company: "Salesforce", initials: "NB", avatarBg: "#e6d9c8", rank: "#5", ...grey },
+        { img: "uploads/Dashboard3.jpg", name: "Sarah Martin", company: "Gong", initials: "SM", avatarBg: "#f3ddd2", rank: "#6", ...grey },
+        { img: "uploads/Dashboard4.jpg", name: "Mathew Adams", company: "Skywards", initials: "MA", avatarBg: "#d8dcf7", rank: "#7", ...grey }
+      ].map(t => ({ ...t, title: tileTitle, bg: 'url("' + t.img + '")', onOpen: openPitch })),
+
+      search: s.search,
+      onSearch: e => this.setState({ search: e.target.value }),
+      rooms: ROOMS.map((r, i) => ({
+        name: r.name, time: r.time,
+        bg: 'url("' + r.img + '")',
+        preview: (s.extraMsgs[i] || []).length ? (s.extraMsgs[i][s.extraMsgs[i].length - 1] || "").slice(0, 34) + "\u2026" : "Hi there! Ethan has pitched an exc...",
+        unread: r.unread && !s.read[i],
+        timeColor: (r.unread && !s.read[i]) ? "#101014" : "#a6a6ae",
+        previewColor: (r.unread && !s.read[i]) ? "#101014" : "#a6a6ae",
+        onOpen: () => this.setState(st => ({ view: "room", roomIdx: i, roomTab: "messages", detailTab: "fit", read: Object.assign({}, st.read, { [i]: true }), playing: false, elapsed: 0 }))
+      })).filter(r => r.name.toLowerCase().includes(s.search.toLowerCase())),
+      roomTitle: room ? room.short.replace(/ \(.*/, "") : "",
+      roomBg: room ? 'url("' + room.img + '")' : "none",
+      roomMessages: s.roomTab === "messages",
+      roomVideo: s.roomTab === "video",
+      msgColor: s.roomTab === "messages" ? "#101014" : "#5a5a63",
+      vidColor: s.roomTab === "video" ? "#101014" : "#5a5a63",
+      msgUnderline: s.roomTab === "messages" ? "#3b3bd9" : "transparent",
+      vidUnderline: s.roomTab === "video" ? "#3b3bd9" : "transparent",
+      showMessages: () => this.setState({ roomTab: "messages" }),
+      showVideo: () => this.setState({ roomTab: "video" }),
+      thread: baseThread.concat(extra).map(m => ({ ...m, bg: 'url("' + m.img + '")' })),
+      draft: s.draft,
+      onDraft: e => this.setState({ draft: e.target.value }),
+      onDraftKey: e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); this.sendNow(); } },
+      sendBg: s.draft.trim() ? "#5b5bf5" : "#ebebee",
+      sendColor: s.draft.trim() ? "#fff" : "#b4b4bb",
+      sendDraft: () => this.sendNow(),
+
+      playing: s.playing, paused: !s.playing,
+      progress: Math.min(100, Math.round((s.elapsed / 150) * 100)) + "%",
+      elapsed: this.fmt(s.elapsed),
+      togglePlay: () => { const on = !s.playing; this.tick(on); this.setState({ playing: on }); },
+      booked: s.booked,
+      bookBg: s.booked ? "#1e7a43" : "#5b5bf5",
+      bookLabel: s.booked ? "Demo booked" : "Book demo",
+      bookDemo: () => { this.setState({ booked: true }); this.flash("Demo request sent to Ethan"); },
+
+      librarySearch: s.librarySearch,
+      onLibrarySearch: e => this.setState({ librarySearch: e.target.value }),
+      videos: videos.filter(x => x.title.toLowerCase().includes(s.librarySearch.toLowerCase())),
+
+      detailTab: s.detailTab,
+      isFit: s.detailTab === "fit", isSummary: s.detailTab === "summary", isTranscript: s.detailTab === "transcript",
+      fitColor: s.detailTab === "fit" ? "#101014" : "#5a5a63",
+      sumColor: s.detailTab === "summary" ? "#101014" : "#5a5a63",
+      trColor: s.detailTab === "transcript" ? "#101014" : "#5a5a63",
+      fitUnderline: s.detailTab === "fit" ? "#3b3bd9" : "transparent",
+      sumUnderline: s.detailTab === "summary" ? "#3b3bd9" : "transparent",
+      trUnderline: s.detailTab === "transcript" ? "#3b3bd9" : "transparent",
+      showFit: () => this.setState({ detailTab: "fit" }),
+      showSummary: () => this.setState({ detailTab: "summary" }),
+      showTranscript: () => this.setState({ detailTab: "transcript" }),
+      about: aboutBase.concat(Array.from({ length: s.aboutExtra }, () => ({ a: "New pain point", b: "How Gong helps" }))),
+      criteria: criteriaBase.concat(Array.from({ length: s.criteriaExtra }, () => ({ a: "New criteria", b: "Response" }))),
+      addBenefit: () => this.setState(st => ({ aboutExtra: st.aboutExtra + 1 })),
+      addCriteria: () => this.setState(st => ({ criteriaExtra: st.criteriaExtra + 1 })),
+      points: [
+        "Opened on the cost of slow ramp time for new reps.",
+        "Positioned AI roleplays as the fastest path to consistent messaging.",
+        "Covered integration depth with existing CRM workflows.",
+        "Closed with a 14-day trial and a personalized onboarding plan."
+      ],
+      transcript: [
+        { at: "00:38", who: "Daniel", text: "Alright, that\u2019s good to know. I\u2019ll take that into consideration. Anything else you think I should know about Gong before I make a decision?" },
+        { at: "00:41", who: "Ethan", text: "Nope, that\u2019s it for now, Daniel. I would love to send over some details over mail. Can you please share your email ID with me so that I can proceed with that?" },
+        { at: "00:41", who: "Daniel", text: "Appreciate the offer, Ethan, but I\u2019m not ready to commit just yet. I\u2019ll review the info you shared and get back to you if I\u2019m interested. Thanks for your time." },
+        { at: "00:44", who: "Daniel", text: "One more thing \u2014 could you also share how the pricing changes if we add seats mid-cycle?" }
+      ],
+      openChat: () => this.setState({ roomTab: "messages" }),
+      demoToast: () => this.flash("Playing Gong demo video\u2026"),
+      calToast: () => this.flash("Opening Ethan\u2019s calendar\u2026"),
+      share: () => this.flash("Share link copied"),
+      toast: () => this.flash("Not wired up in this prototype"),
+      stop: e => e.stopPropagation(),
+      toastOpen: !!s.toast,
+      toastText: s.toast || "",
+
+      teamSearch: s.teamSearch,
+      onTeamSearch: e => this.setState({ teamSearch: e.target.value }),
+      members: MEMBERS.map((m, i) => ({
+        name: m.name, email: m.email, views: m.views, plays: m.plays, meetings: m.meetings,
+        role: m.role, plan: planOf(i),
+        roleWeight: m.role === "Admin" ? 600 : 400,
+        planWeight: planOf(i) === "Plus" ? 600 : 400,
+        bg: 'url("' + m.img + '")',
+        onEdit: () => this.setState({ editIdx: i }),
+        onView: () => this.setState({ memberIdx: i, memberSearch: "" })
+      })).filter(m => m.name.toLowerCase().includes(s.teamSearch.toLowerCase())),
+      editOpen: s.editIdx !== null,
+      editName: em ? em.name : "",
+      editBg: em ? 'url("' + em.img + '")' : "none",
+      editRole: em ? em.role : "",
+      editPlan: s.editIdx === null ? "" : planOf(s.editIdx),
+      togglePlan: () => this.setState(st => ({ plans: Object.assign({}, st.plans, { [st.editIdx]: planOf(st.editIdx) === "Plus" ? "Starter" : "Plus" }) })),
+      closeEdit: () => this.setState({ editIdx: null }),
+      confirmEdit: () => { this.setState({ editIdx: null }); this.flash("Profile updated"); },
+      memberOpen: s.memberIdx !== null,
+      memberName: sm ? sm.name : "",
+      memberEmail: sm ? sm.email : "",
+      memberBg: sm ? 'url("' + sm.img + '")' : "none",
+      memberSearch: s.memberSearch,
+      onMemberSearch: e => this.setState({ memberSearch: e.target.value }),
+      memberVideos: [
+        { date: "15 July 2024" }, { date: "15 July 2024" }, { date: "12 July 2024" }, { date: "09 July 2024" }
+      ].map(x => ({ ...x, title: (sm ? sm.name.split(" ")[0] : "Ethan") + " \u2039\u203a Daniel: Streamline your processes with an increas\u2026", onOpen: openPitch })),
+      closeMember: () => this.setState({ memberIdx: null }),
+
+      role: s.role,
+      onRole: e => this.setState({ role: e.target.value }),
+      name: s.name,
+      onName: e => this.setState({ name: e.target.value }),
+      voice: VOICES[s.voiceIdx],
+      cycleVoice: () => this.setState(st => ({ voiceIdx: (st.voiceIdx + 1) % VOICES.length })),
+      prospectRole: s.prospectRole,
+      onProspectRole: e => this.setState({ prospectRole: e.target.value }),
+      groups: [
+        this.group("triggers", "Triggers", "List common problems that your solution solves for your prospects", "Add triggers", "Describe a trigger"),
+        this.group("pains", "Pain points", "List common problems that your solution solves for your prospects", "Add pain point", "Describe a pain point"),
+        this.group("objections", "Objections", "List common questions you generally face while talking to prospects", "Add question", "Describe an objection")
+      ],
+
+      stageBg: theme.css,
+      camBg: 'url("' + camFile + '")',
+      camFilter: s.videoBg === "blur" ? "blur(6px)" : "none",
+      blobBg: 'url("' + BLOBS[s.blob] + '")',
+      selfLabel: s.recording ? "Recording \u00b7 " + this.fmt(s.elapsed) : s.role ? "Ethan, " + s.role : "Ethan",
+      recording: s.recording,
+      pitchIdle: !s.recording,
+      startRecording: () => { this.tick(true); this.setState({ recording: true, elapsed: 0 }); },
+      retry: () => { this.tick(false); this.setState({ recording: false, elapsed: 0 }); },
+      stopRecording: () => { this.tick(false); this.setState({ recording: false, elapsed: 0, newVideo: true }); this.nav("library"); this.flash("Pitch saved to your library"); },
+      settingsOpen: s.settings,
+      openSettings: () => this.setState({ settings: true }),
+      closeSettings: () => this.setState({ settings: false }),
+      sections: [
+        { key: "pick", label: "Pick a BG" },
+        { key: "custom", label: "Custom BG" },
+        { key: "bot", label: "Bot color" },
+        { key: "video", label: "Video background" }
+      ].map(x => ({
+        label: x.label,
+        bg: s.section === x.key ? "#eef0fe" : "#f5f5f7",
+        weight: s.section === x.key ? 600 : 400,
+        onPick: () => this.setState({ section: x.key })
+      })),
+      isPickBg: s.section === "pick", isCustomBg: s.section === "custom",
+      isBotColor: s.section === "bot", isVideoBg: s.section === "video",
+      themes: THEMES.map(t => ({
+        img: 'url("' + t.file + '")',
+        border: s.theme === t.key ? "#5b5bf5" : "#fff",
+        onPick: () => this.setState({ theme: t.key })
+      })),
+      blobs: BLOBS.map((f, i) => ({
+        img: 'url("' + f + '")',
+        border: s.blob === i ? "#5b5bf5" : "#ececef",
+        onPick: () => this.setState({ blob: i })
+      })),
+      videoBgs: VIDEO_BGS.map(x => ({
+        label: x.label,
+        img: x.file ? 'url("' + x.file + '")' : "none",
+        fallback: x.key === "none" ? "#45454b" : (x.key === "blur" ? "#6a6a73" : "transparent"),
+        border: s.videoBg === x.key ? "#5b5bf5" : "#fff",
+        onPick: () => this.setState({ videoBg: x.key })
+      }))
+    };
+  }
+  sendNow() {
+    const text = this.state.draft.trim();
+    if (!text) return;
+    const i = this.state.roomIdx;
+    this.setState(st => ({
+      draft: "",
+      extraMsgs: Object.assign({}, st.extraMsgs, { [i]: (st.extraMsgs[i] || []).concat(text) })
+    }));
+  }
+}
+</script>
+</body>
+</html>
