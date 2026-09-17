@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loop — Mobile work</title>
+<meta name="description" content="Loop: an AI-powered restaurant operations platform. Mobile-first alerts and an interactive prototype by Maitreyi Sharma, product designer.">
+<meta property="og:title" content="Loop — Mobile work">
+<meta property="og:description" content="Mobile-first operations alerts for restaurant operators. Interactive prototype by Maitreyi Sharma.">
+<meta property="og:image" content="cover.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#101011; --muted:#6b6b70; --line:#e4e4e6; --paper:#fbfbfa; --dark:#14141a; --soft:#eef2f4; --edge:clamp(20px,6vw,88px); }
+  * { box-sizing:border-box; }
+  html, body { margin:0; }
+  body { background:var(--paper); color:var(--ink); font-family:"Instrument Sans", system-ui, sans-serif; -webkit-font-smoothing:antialiased; text-wrap:pretty; }
+  a { color:var(--ink); text-decoration:none; }
+  a:hover { color:var(--muted); }
+  ::selection { background:var(--ink); color:var(--paper); }
+  a:focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:4px; }
+  .wrap { max-width:1160px; margin:0 auto; padding:0 var(--edge); }
+  .label { display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+
+  header.wrap { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:28px; padding-bottom:28px; }
+  .back { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:var(--paper); background:var(--ink); padding:9px 16px 9px 12px; border-radius:999px; transition:background 150ms ease; }
+  .back:hover { background:#2b2b31; color:var(--paper); }
+  .back svg { transition:transform 150ms ease; }
+  .back:hover svg { transform:translateX(-2px); }
+
+  .hero { padding:clamp(40px,8vw,112px) 0 clamp(40px,6vw,80px); }
+  h1 { font-size:clamp(40px,7vw,88px); line-height:1.02; font-weight:500; letter-spacing:-.035em; margin:0 0 0 -.04em; max-width:16ch; }
+  .lead { font-size:clamp(17px,1.6vw,20px); line-height:1.6; color:var(--muted); max-width:62ch; margin:clamp(28px,3vw,44px) 0 0; }
+
+  .band { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:32px 0; }
+  .band div { display:flex; flex-direction:column; gap:8px; }
+  .band strong { font-weight:400; font-size:17px; line-height:1.45; letter-spacing:-.01em; }
+
+  section { padding:clamp(56px,8vw,104px) 0 0; }
+  h2 { font-size:clamp(26px,3vw,36px); line-height:1.15; font-weight:500; letter-spacing:-.025em; margin:14px 0 0; max-width:22ch; }
+  .points { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(24px,3vw,48px); margin-top:clamp(32px,4vw,48px); }
+  .point { border-top:1px solid var(--ink); padding-top:18px; }
+  .point .num { font-size:12px; letter-spacing:.12em; color:var(--muted); }
+  .point h3 { font-size:19px; line-height:1.3; font-weight:500; letter-spacing:-.015em; margin:12px 0 10px; }
+  .point p { font-size:15.5px; line-height:1.65; color:var(--muted); margin:0; }
+
+  .proto { display:grid; grid-template-columns:minmax(0,430px) minmax(0,1fr); gap:clamp(32px,6vw,96px); align-items:start; margin-top:clamp(28px,4vw,44px); }
+  .frame { position:relative; width:100%; max-width:430px; aspect-ratio:430 / 910; border-radius:22px; overflow:hidden; background:var(--soft); }
+  .frame::before { content:"Loading prototype…"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--muted); }
+  .frame iframe { position:relative; display:block; width:100%; height:100%; border:0; background:transparent; }
+  .steps { position:sticky; top:32px; }
+  .steps ol { list-style:none; counter-reset:s; padding:0; margin:18px 0 0; }
+  .steps li { counter-increment:s; display:grid; grid-template-columns:36px minmax(0,1fr); gap:6px; padding:14px 0; border-bottom:1px solid var(--line); font-size:16px; line-height:1.55; }
+  .steps li::before { content:counter(s,decimal-leading-zero); font-size:12px; letter-spacing:.08em; color:var(--muted); padding-top:4px; }
+  .steps li b { font-weight:500; }
+  .cta { display:inline-flex; align-items:center; gap:10px; margin-top:28px; font-size:15px; line-height:1; padding:15px 24px; border-radius:999px; background:var(--ink); color:var(--paper); transition:background 150ms ease, transform 150ms ease; }
+  .cta:hover { background:#2b2b31; color:var(--paper); transform:translateY(-1px); }
+  .cta svg { transition:transform 150ms ease; }
+  .cta:hover svg { transform:translateX(3px); }
+
+  .focus { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:clamp(28px,4vw,40px); }
+  .focus a { display:flex; flex-direction:column; gap:8px; padding:20px 22px; border:1px solid var(--line); border-radius:14px; background:#fff; transition:border-color 150ms ease, transform 150ms ease; }
+  .focus a:hover { border-color:var(--ink); color:var(--ink); transform:translateY(-1px); }
+  .focus strong { font-size:17px; font-weight:500; letter-spacing:-.01em; display:flex; justify-content:space-between; gap:12px; }
+  .focus span { font-size:14.5px; line-height:1.55; color:var(--muted); }
+
+  footer.wrap { margin-top:clamp(64px,9vw,120px); border-top:1px solid var(--line); padding-top:28px; padding-bottom:40px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  footer a { font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+  footer a:hover { color:var(--ink); }
+
+  @media (max-width:900px) {
+    .band, .points, .focus { grid-template-columns:minmax(0,1fr); }
+    .band { row-gap:28px; }
+    .proto { grid-template-columns:minmax(0,1fr); }
+    .frame { margin:0 auto; }
+    .steps { position:static; }
+  }
+  @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+  <header class="wrap">
+    <a class="back" href="../">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      All prototypes
+    </a>
+    <span class="label">Mobile work</span>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <span class="label">Loop</span>
+      <h1 style="margin-top:18px">Loop: Store operations, in your pocket.</h1>
+      <p class="lead">Loop is an AI-powered restaurant operations platform that helps operators monitor performance, identify issues, and take action across their locations. Designed for operators who needed to stay connected to operations away from their desks with instant high-priority alerts, live issue tracking, and key AI interactions available directly on their phones.</p>
+    </div>
+
+    <div class="band">
+      <div><span class="label">Platform</span><strong>AI-powered restaurant operations</strong></div>
+      <div><span class="label">On mobile</span><strong>High-priority alerts · Live issue tracking · AI assistant</strong></div>
+    </div>
+
+    <section aria-labelledby="why">
+      <span class="label">01 — Why mobile first</span>
+      <h2 id="why">Operation alerts had to live on the phone</h2>
+      <div class="points">
+        <div class="point">
+          <span class="num">A</span>
+          <h3>Operators aren't at their desks</h3>
+          <p>Store managers spend the day on the floor and moving between locations. An alert that waits on a laptop is an alert seen too late.</p>
+        </div>
+        <div class="point">
+          <span class="num">B</span>
+          <h3>Downtime is counted in minutes</h3>
+          <p>When a store goes offline on a delivery platform, orders are lost until someone acts. So each alert shows how long the store has been down and what it's costing.</p>
+        </div>
+        <div class="point">
+          <span class="num">C</span>
+          <h3>Act from the alert, not after it</h3>
+          <p>Every alert opens into live status and the next step: restore, call the store, snooze, or hand it to Loop's AI assistant. Most issues close in a few taps.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="try">
+      <span class="label">02 — Interactive prototype</span>
+      <h2 id="try">Try the mobile app</h2>
+      <div class="proto">
+        <div class="frame">
+          <iframe src="app.html" title="Loop mobile app — interactive prototype" allow="clipboard-write"></iframe>
+        </div>
+        <div class="steps">
+          <span class="label">What to try</span>
+          <ol>
+            <li><span><b>Sign in.</b> The fields are already filled in.</span></li>
+            <li><span><b>Open a store</b> to see its live status and latest updates.</span></li>
+            <li><span><b>Tap the bell</b>, then open an offline or failed alert to drill into it.</span></li>
+            <li><span><b>Tap the Loop button</b> at the bottom right to call or chat with the AI assistant.</span></li>
+            <li><span><b>Open "State of the union"</b> on a store for the weekly ops report.</span></li>
+          </ol>
+          <a class="cta" href="app.html" target="_blank" rel="noopener">Open full screen
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="focus">
+      <span class="label">03 — Focused screens</span>
+      <h2 id="focus">Key moments, up close</h2>
+      <div class="focus">
+        <a href="notifications.html" target="_blank" rel="noopener">
+          <strong>Notifications <span aria-hidden="true">↗</span></strong>
+          <span>One feed with a card for each alert type: offline, restore failed, restored, snoozed and reports.</span>
+        </a>
+        <a href="store-alerts.html" target="_blank" rel="noopener">
+          <strong>Store alert states <span aria-hidden="true">↗</span></strong>
+          <span>The alert drill-down in five states, from inactive and restored to repeated and critical.</span>
+        </a>
+        <a href="sotu-report.html" target="_blank" rel="noopener">
+          <strong>Weekly SOTU report <span aria-hidden="true">↗</span></strong>
+          <span>A chain-wide "state of the union": health score, averages and store rankings.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <a href="../">← All prototypes</a>
+    <span class="label">Loop — mobile work</span>
+  </footer>
+</body>
+</html>
