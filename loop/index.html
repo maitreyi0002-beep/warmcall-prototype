@@ -39,11 +39,6 @@
 
   section { padding:clamp(56px,8vw,104px) 0 0; }
   h2 { font-size:clamp(26px,3vw,36px); line-height:1.15; font-weight:500; letter-spacing:-.025em; margin:14px 0 0; max-width:22ch; }
-  .points { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(24px,3vw,48px); margin-top:clamp(32px,4vw,48px); }
-  .point { border-top:1px solid var(--ink); padding-top:18px; }
-  .point .num { font-size:12px; letter-spacing:.12em; color:var(--muted); }
-  .point h3 { font-size:19px; line-height:1.3; font-weight:500; letter-spacing:-.015em; margin:12px 0 10px; }
-  .point p { font-size:15.5px; line-height:1.65; color:var(--muted); margin:0; }
 
   .proto { display:grid; grid-template-columns:minmax(0,430px) minmax(0,1fr); gap:clamp(32px,6vw,96px); align-items:start; margin-top:clamp(28px,4vw,44px); }
   .frame { position:relative; width:100%; max-width:430px; aspect-ratio:430 / 910; border-radius:22px; overflow:hidden; background:var(--soft); }
@@ -70,7 +65,7 @@
   footer a:hover { color:var(--ink); }
 
   @media (max-width:900px) {
-    .band, .points, .focus { grid-template-columns:minmax(0,1fr); }
+    .band, .focus { grid-template-columns:minmax(0,1fr); }
     .band { row-gap:28px; }
     .proto { grid-template-columns:minmax(0,1fr); }
     .frame { margin:0 auto; }
@@ -100,30 +95,8 @@
       <div><span class="label">On mobile</span><strong>High-priority alerts · Live issue tracking · AI assistant</strong></div>
     </div>
 
-    <section aria-labelledby="why">
-      <span class="label">01 — Why mobile first</span>
-      <h2 id="why">Operation alerts had to live on the phone</h2>
-      <div class="points">
-        <div class="point">
-          <span class="num">A</span>
-          <h3>Operators aren't at their desks</h3>
-          <p>Store managers spend the day on the floor and moving between locations. An alert that waits on a laptop is an alert seen too late.</p>
-        </div>
-        <div class="point">
-          <span class="num">B</span>
-          <h3>Downtime is counted in minutes</h3>
-          <p>When a store goes offline on a delivery platform, orders are lost until someone acts. So each alert shows how long the store has been down and what it's costing.</p>
-        </div>
-        <div class="point">
-          <span class="num">C</span>
-          <h3>Act from the alert, not after it</h3>
-          <p>Every alert opens into live status and the next step: restore, call the store, snooze, or hand it to Loop's AI assistant. Most issues close in a few taps.</p>
-        </div>
-      </div>
-    </section>
-
     <section aria-labelledby="try">
-      <span class="label">02 — Interactive prototype</span>
+      <span class="label">01 — Interactive prototype</span>
       <h2 id="try">Try the mobile app</h2>
       <div class="proto">
         <div class="frame">
@@ -146,7 +119,7 @@
     </section>
 
     <section aria-labelledby="focus">
-      <span class="label">03 — Focused screens</span>
+      <span class="label">02 — Focused screens</span>
       <h2 id="focus">Key moments, up close</h2>
       <div class="focus">
         <a href="notifications.html" target="_blank" rel="noopener">
