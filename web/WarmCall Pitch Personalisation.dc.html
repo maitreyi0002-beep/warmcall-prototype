@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>WarmCall — Pitch Personalisation · Web prototype</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script id="wc-phone-redirect">(function(){try{if(window.matchMedia("(max-width: 860px)").matches)location.replace("WarmCall%20Mobile%20Web.dc.html?screen=pitch");}catch(e){}})();</script>
+<script id="wc-phone-redirect">(function(){try{var q=new URLSearchParams(location.search);if(q.get("desktop")==="1"){sessionStorage.setItem("wcDesktop","1");return;}if(sessionStorage.getItem("wcDesktop")==="1")return;if(window.matchMedia("(max-width: 860px)").matches)location.replace("WarmCall%20Mobile%20Web.dc.html?screen=pitch");}catch(e){}})();</script>
 <script src="./support.js"></script>
 </head>
 <body>
